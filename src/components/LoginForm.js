@@ -1,11 +1,11 @@
 import { React, useState, useContext } from 'react';
 import { useHistory } from "react-router-dom";
 import HealthContext from '../healthContext';
-// import Form from "react-bootstrap/Form";
-// import Button from "react-bootstrap/Button";
-// import Card from "react-bootstrap/Card";
-// import Alert from "react-bootstrap/Alert";
-// import "./LoginForm.css";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+import Card from "react-bootstrap/Card";
+import Alert from "react-bootstrap/Alert";
+import "./LoginForm.css";
 
 
 /** LoginForm
@@ -36,44 +36,78 @@ const LoginForm = () => {
       [name]: value,
     }));
   };
-  
+
   // handle submit when the form submits
-  const handleSubmit = e => {
+const handleSubmit = async (e) => {
     try { 
       e.preventDefault();
-      login(formData);
+      await login(formData);
       setFormData(initialState);
       history.push('/');
     } catch (e) {
+      console.log('e in login --->>', e)
       setFormError(e)
     }
   }
 
   return (
-    <div>
-      <h3>Log In</h3>
+    // <div>
+    //   <h3>Log In</h3>
       
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="username">Username</label>
-        <input
-          type="text"
-          name="username"
-          id="username"
-          onChange={handleChange}
-          value={formData.username}
-          placeholder='username'
-        />
-        <label htmlFor="password">Password</label>
-        <input
-          type="password"
-          name="password"
-          id="password"
-          onChange={handleChange}
-          value={formData.password}
-          placeholder='password'
-        />
-        <button type='submit'>Login</button>
-      </form>
+    //   <form onSubmit={handleSubmit}>
+    //     <label htmlFor="username">Username</label>
+    //     <input
+    //       type="text"
+    //       name="username"
+    //       id="username"
+    //       onChange={handleChange}
+    //       value={formData.username}
+    //       placeholder='username'
+    //     />
+    //     <label htmlFor="password">Password</label>
+    //     <input
+    //       type="password"
+    //       name="password"
+    //       id="password"
+    //       onChange={handleChange}
+    //       value={formData.password}
+    //       placeholder='password'
+    //     />
+    //     <button type='submit'>Login</button>
+    //   </form>
+    // </div>
+    <div className="LoginForm col-md-6 offset-md-3 col-lg-4 offset-lg-4">
+      <h3>Log In</h3>
+      <Card>
+        <Card.Body>
+          {formError && <Alert variant="danger">{formError}</Alert>}
+          
+          <Form onSubmit={handleSubmit}>
+            <Form.Group controlId="loginFormUsername">
+              <Form.Label>Username</Form.Label>
+              <Form.Control type="text" 
+                            placeholder="Username" 
+                            name="username" 
+                            value={formData.username}
+                            onChange={handleChange}/>
+            </Form.Group>
+
+            <Form.Group controlId="loginFormPassword">
+              <Form.Label>Password</Form.Label>
+              <Form.Control type="password" 
+                            placeholder="Password" 
+                            name="password"
+                            value={formData.password}
+                            onChange={handleChange}/>
+            </Form.Group>
+
+            <Button className="LoginForm-button" variant="primary" type="submit">
+              Log In
+            </Button>
+
+          </Form>
+        </Card.Body>
+      </Card>
     </div>
   )
 }

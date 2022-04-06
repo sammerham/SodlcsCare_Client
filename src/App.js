@@ -29,6 +29,7 @@ const App = () => {
   const [currentUser, setCurrentUser] = useState(null);
   const [hasLocalToken, setHasLocalToken] = useState(false);
   const [isLoadingUser, setIsLoadingUser] = useState(true);
+
  
   console.log("App-Start hasLocalToken + currentUser + isLoadingUser ", hasLocalToken, currentUser, isLoadingUser);
 
@@ -75,7 +76,7 @@ const App = () => {
 /** Gets auth token from backend on login, sets it on 
 * localStorage & updates hasLocalToken */
   
-  const Signup= async (formData) => {
+  const signup= async (formData) => {
     const tokenRes = await HealthcareApi.register(formData);
     console.log('tokenres in rgister in app', tokenRes)
     localStorage.setItem("item", tokenRes);

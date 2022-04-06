@@ -54,7 +54,7 @@ const Navigation = () => {
 
           <Nav.Item as="li">
             <NavLink className="nav-link" exact to="/logout">
-              Log Out
+              Logout
               </NavLink>
           </Nav.Item>
         </>

@@ -1,0 +1,26 @@
+body {
+    background-color: rgb(243, 252, 251);
+}
+
+.Homepage-container {
+    margin-top: 25%;
+    background-color: rgba(240, 240, 240, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.Homepage-button {
+    display: block;
+    margin: 3%;
+}
+
+.Homepage {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+    background-position: center center;
+    background-image: url("../assets/Healthcare.jpeg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}

@@ -1,7 +1,10 @@
 import React from 'react';
 import { Switch, Route, Redirect } from "react-router-dom";
+import Appointments from './Appointments';
+import Doctors from './Doctors';
 import HomePage from './HomePage';
 import Logout from './Logout';
+import Users from './Users';
 
 /** Private Routes
  * 
@@ -34,8 +37,10 @@ const PrivateRoutes = () => {
   return (
 
     <Switch> 
-      <Route exact path="/">  <HomePage /> </Route>
-
+      <Route exact path="/"> <HomePage/></Route>
+      <Route exact path="/doctors"> <Doctors/></Route>
+      <Route exact path="/users"> <Users/></Route>
+      <Route exact path="/appointments"> <Appointments/></Route>
       <Route exact path="/logout"> <Logout /> </Route>
 
       <Redirect to="/" />

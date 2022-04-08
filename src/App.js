@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import HealthcareApi from './api';
 import jwt_decode from "jwt-decode";
 import HealthContext from './healthContext';

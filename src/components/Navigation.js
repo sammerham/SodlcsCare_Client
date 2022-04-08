@@ -1,4 +1,4 @@
-import { React, useContext } from "react";
+import React, {useContext } from "react";
 import { NavLink } from "react-router-dom";
 import Nav from 'react-bootstrap/Nav';
 import HealthContext from '../healthContext';
@@ -65,7 +65,7 @@ const Navigation = () => {
     <Nav as="ul" variant="tabs" className="Navigation Nav justify-content-center">
       <Nav.Item as="li">
         <NavLink className="nav-link" exact to="/">
-          Sodlcare Care
+          Sodlcs Care
           </NavLink>
       </Nav.Item>
       {getNavLinks(currentUser)}

@@ -16,7 +16,6 @@ import Image from 'react-bootstrap/Image'
 
 const HomePage = () => {
   const { currentUser } = useContext(HealthContext);
-  // const imageStyle = { width: '400px', height: '150px' };
   if (currentUser) {
     return (
       <div className="Homepage">
@@ -28,16 +27,17 @@ const HomePage = () => {
           <Stack direction="horizontal" gap={5} className="justify-content-center">
               <Link to="/Doctors" className="a-homepage">
                 <Image src={doctors} className='image'></Image>
-                <h6 className="btn-secondary mainTiles-homepage" id='doc'>Doctors</h6>
+                <h6 className="mainTiles-homepage" id='doc'>Doctors</h6>
               </Link>
               
               <Link to="/appointments" className="a-homepage">
                 <Image src={calendar} className='image'></Image>
-                <h6 className="btn-secondary mainTiles-homepage">Appointments</h6>
+                {/* <h6 className="btn-secondary mainTiles-homepage">Appointments</h6> */}
+                <h6 className="mainTiles-homepage">Appointments</h6>
               </Link>
               <Link to="/users" className="a-homepage" >
                 <Image src={users} className='image'></Image>
-                <h6 className="btn-secondary mainTiles-homepage">Users</h6>
+                <h6 className=" mainTiles-homepage">Users</h6>
               </Link>
           </Stack>
       </div>
@@ -46,7 +46,7 @@ const HomePage = () => {
     return (
       <div className="Homepage">
         <h1><Badge bg="secondary" className="Homepage-container">Welcome to Sodlcs Care!</Badge></h1>
-        <Link className="btn btn-primary sam" to="/login"> Log In </Link>
+        <Link className="loginbtn-homepage" to="/login"> Log In </Link>
 
       </div>
     )

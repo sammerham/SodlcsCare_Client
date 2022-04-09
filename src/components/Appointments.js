@@ -1,12 +1,14 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, {useContext} from 'react'
+import SearchForm from './SearchForm'
+import HealthContext from '../healthContext';
 
 const Appointments = () => {
+  const { setApptSearchTerm } = useContext(HealthContext);
   return (
-      <>
-      <Link className="btn btn-primary" to="/"> Home </Link>
-      <div>Appointments</div>
-    </>
+    <div>
+      <h1>Appointments's Page</h1>
+      <SearchForm func={setApptSearchTerm}/>
+    </div>
   )
 }
 

@@ -35,8 +35,29 @@ body {
 .mainTiles-homepage {
     padding: 10px;
     margin-top: 20px;
+    border-radius: 16px;
+    color: aliceblue;
+    background-color: rgba(113, 120, 120, 0.689);
 }
 
 .a-homepage{
     text-decoration: none;
+}
+
+.mainTiles-homepage:hover{
+    background-color: black;
+}
+
+.loginbtn-homepage{
+    text-decoration: none;
+    padding: 10px;
+    margin-top: 20px;
+    border-radius: 16px;
+    color: aliceblue;
+    background-color: rgba(95, 96, 96, 0.689);
+}
+
+.loginbtn-homepage:hover {
+    background-color: black;
+    color: aliceblue;
 }

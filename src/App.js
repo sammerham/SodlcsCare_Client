@@ -22,13 +22,16 @@ import './App.css';
  *  - hasLocalToken (boolean)
  *  - isLoadingUser (boolean)
  * 
- * App -> { Navigation, Routes, PrivateRoutes }
+ * App -> { Navigation, PublicRoutes, PrivateRoutes }
  */
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState(null);
   const [hasLocalToken, setHasLocalToken] = useState(false);
   const [isLoadingUser, setIsLoadingUser] = useState(true);
+  const [docSearchTerm, setDocSearchTerm] = useState('');
+  const [apptSearchTerm, setApptSearchTerm] = useState('');
+  const [userSearchTerm, setUserSearchTerm] = useState('');
 
  
   console.log("App-Start hasLocalToken + currentUser + isLoadingUser ", hasLocalToken, currentUser, isLoadingUser);
@@ -51,8 +54,8 @@ const App = () => {
 
         let { username } = jwt_decode(HealthcareApi.token);
         setIsLoadingUser(true);
-        let response = await HealthcareApi.getUser(username);
-        setCurrentUser(response);
+        let user = await HealthcareApi.getUser(username);
+        setCurrentUser(user);
         //re-render here
         setIsLoadingUser(false);
 
@@ -107,12 +110,19 @@ const App = () => {
       isLoadingUser);
   
   
+  console.log('App doc Search Term --->>', docSearchTerm)
+  console.log('App Appt Search Term --->>', apptSearchTerm)
+  console.log('App user Search Term --->>', userSearchTerm)
+  
   return (
     <div className="App">
       <HealthContext.Provider value={{
         login,
         logout,
-        currentUser
+        currentUser,
+        setDocSearchTerm,
+        setApptSearchTerm,
+        setUserSearchTerm
       }}> 
         <BrowserRouter>
           <Navigation />

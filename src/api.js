@@ -47,9 +47,15 @@ class HealthcareApi {
     return response.users;
   }
 
-  // get user - get request returns single user 
-  static async getUser(username) { 
+  // get user - get request returns single user by username
+  static async getUserByUsername(username) { 
     const response = await this.request(`users/${username}`);
+    return response.user;
+  }
+
+    // get user - get request returns single user by fname and lname
+  static async getUserByName(data) { 
+    const response = await this.request(`users/name`, data, 'post' );
     return response.user;
   }
 

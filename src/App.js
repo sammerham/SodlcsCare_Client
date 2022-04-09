@@ -29,9 +29,13 @@ const App = () => {
   const [currentUser, setCurrentUser] = useState(null);
   const [hasLocalToken, setHasLocalToken] = useState(false);
   const [isLoadingUser, setIsLoadingUser] = useState(true);
-  const [docSearchTerm, setDocSearchTerm] = useState('');
-  const [apptSearchTerm, setApptSearchTerm] = useState('');
-  const [userSearchTerm, setUserSearchTerm] = useState('');
+  const [docSearchData, setDocSearchData] = useState({});
+  const [apptSearchData, setApptSearchData] = useState({});
+  const [userSearchData, setUserSearchData] = useState({});
+  const [doctors, setDoctors] = useState([]);
+  const [appts, setAppts] = useState([]);
+  const [users, setUsers] = useState([]);
+  const [errs, setErrs] = useState([]);
 
  
   console.log("App-Start hasLocalToken + currentUser + isLoadingUser ", hasLocalToken, currentUser, isLoadingUser);
@@ -54,7 +58,8 @@ const App = () => {
 
         let { username } = jwt_decode(HealthcareApi.token);
         setIsLoadingUser(true);
-        let user = await HealthcareApi.getUser(username);
+        let user = await HealthcareApi.getUserByUsername(username);
+        console.log('user in app after api call --->>', user)
         setCurrentUser(user);
         //re-render here
         setIsLoadingUser(false);
@@ -75,6 +80,21 @@ const App = () => {
   }, [hasLocalToken]);
 
 
+  async function getUsersAfterSearch(formData) { 
+    try {
+      let user = await HealthcareApi.getUserByName(formData);
+      console.log('user before api search call --->>', user)
+      setUsers(users => user);
+      setErrs([])
+      console.log('user in app after api call after search --->>', users)
+    } catch (e) {
+      setErrs(e);
+      setUsers([])
+    }
+  };
+
+
+
   // Signup
 /** Gets auth token from backend on login, sets it on 
 * localStorage & updates hasLocalToken */
@@ -92,7 +112,6 @@ const App = () => {
    * localStorage and updates hasLocalToken */
   const login = async (loginData) => {
     const tokenRes = await HealthcareApi.login(loginData);
-    console.log('Token ---->>',tokenRes)
     setHasLocalToken(true);
     localStorage.setItem("item", tokenRes);
   };
@@ -110,9 +129,9 @@ const App = () => {
       isLoadingUser);
   
   
-  console.log('App doc Search Term --->>', docSearchTerm)
-  console.log('App Appt Search Term --->>', apptSearchTerm)
-  console.log('App user Search Term --->>', userSearchTerm)
+  console.log('App doc Search Data --->>', docSearchData)
+  console.log('App Appt Search Data --->>', apptSearchData)
+  console.log('App user Search Term --->>', userSearchData)
   
   return (
     <div className="App">
@@ -120,9 +139,12 @@ const App = () => {
         login,
         logout,
         currentUser,
-        setDocSearchTerm,
-        setApptSearchTerm,
-        setUserSearchTerm
+        setDocSearchData,
+        setApptSearchData,
+        setUserSearchData,
+        getUsersAfterSearch,
+        users,
+        errs
       }}> 
         <BrowserRouter>
           <Navigation />

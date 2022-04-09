@@ -1,13 +1,18 @@
-import React, {useContext} from 'react'
+import React, {useContext, useState} from 'react'
 import SearchForm from './SearchForm';
 import HealthContext from '../healthContext';
 
 const Users = () => {
-  const { setUserSearchTerm } = useContext(HealthContext);
+  const { getUsersAfterSearch, users, errs } = useContext(HealthContext);
+
+  console.log('errs---->>', errs)
   return (
       <div>
       <h1>Users's Page</h1>
-      <SearchForm func={setUserSearchTerm}/>
+      <SearchForm getUsersAfterSearch={getUsersAfterSearch} />
+      {users.firstName}
+      {errs[0]}
+      
     </div>
   )
 }

@@ -1,31 +1,47 @@
-import React, { useState, useContext } from 'react';
-import HealthContext from '../healthContext';
+import React, { useState } from 'react';
 
-const SearchForm = ({ func }) => {
-  const [searchTerm, setSearchTerm] = useState('');
-  // const { docfunc } = useContext(HealthContext);
+
+const SearchForm = ({getUsersAfterSearch}) => {
+  const initialData = {
+    firstName: '',
+    lastName: ''
+  };
+  const [formData, setFormData] = useState(initialData);
   const handleChange = e => {
     const { name, value } = e.target;
-    setSearchTerm(value)
+    setFormData(data => ({
+      ...data,
+      [name]: value,
+    }));
   };
 
   const handleSubmit = e => {
     e.preventDefault();
-    func(searchTerm);
-    setSearchTerm('');
+    getUsersAfterSearch(formData);
+    setFormData(initialData);
   };
 
   return (
     
     <div>
       <form onSubmit={handleSubmit}>
+        <label htmlFor="firstName"> First Name</label>
         <input
           type="text"
-          name="searchTerm"
-          placeholder="Enter Search Term"
-          value={searchTerm}
+          name="firstName"
+          placeholder="First Name"
+          value={formData.firstName}
           onChange={handleChange}
-          id="searchTerm"
+          id="firstName"
+        />
+        <label htmlFor="lastName"> Last Name</label>
+        <input
+          type="text"
+          name="lastName"
+          placeholder="Last Name"
+          value={formData.lastName}
+          onChange={handleChange}
+          id="lastName"
         />
         <button type='submit'>Search</button>
       </form>

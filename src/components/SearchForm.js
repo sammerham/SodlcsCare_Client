@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import HealthContext from '../healthContext';
 
 
-const SearchForm = ({getUsersAfterSearch}) => {
+const SearchForm = ({ searchFunc }) => {
+  
   const initialData = {
     firstName: '',
     lastName: ''
   };
   const [formData, setFormData] = useState(initialData);
+  const { setDisplayResults } = useContext(HealthContext);
   const handleChange = e => {
     const { name, value } = e.target;
     setFormData(data => ({
@@ -17,8 +20,9 @@ const SearchForm = ({getUsersAfterSearch}) => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    getUsersAfterSearch(formData);
+    searchFunc(formData);
     setFormData(initialData);
+    setDisplayResults(true);
   };
 
   return (

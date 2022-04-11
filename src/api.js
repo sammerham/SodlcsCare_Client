@@ -135,7 +135,7 @@ class HealthcareApi {
     const response = await this.request(`appts`);
     return response.appointments;
   }
-  getApptsByName
+
   
   // get appts by patient's name - post request return [{}, {}, ...]
   static async getApptByName(data) { 

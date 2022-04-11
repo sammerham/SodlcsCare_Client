@@ -29,18 +29,17 @@ const App = () => {
   const [currentUser, setCurrentUser] = useState(null);
   const [hasLocalToken, setHasLocalToken] = useState(false);
   const [isLoadingUser, setIsLoadingUser] = useState(true);
-  const [docSearchData, setDocSearchData] = useState({});
-  const [apptSearchData, setApptSearchData] = useState({});
-  const [userSearchData, setUserSearchData] = useState({});
+  const [searchClicked, setSearchClicked] = useState(false);
   const [doctors, setDoctors] = useState([]);
   const [appts, setAppts] = useState([]);
   const [users, setUsers] = useState([]);
-  const [errs, setErrs] = useState([]);
-
+  const [searchErrs, setSearchErrs] = useState([]);
+  const [displayResults, setDisplayResults] = useState(false)
+  
  
   console.log("App-Start hasLocalToken + currentUser + isLoadingUser ", hasLocalToken, currentUser, isLoadingUser);
-
-
+  console.log('App users ---->>', users)
+  
   /** set current user and update isLoadingUser if there is a local token */
   useEffect(function changeUserFromToken() {
     let localToken = localStorage.getItem("item");
@@ -59,7 +58,6 @@ const App = () => {
         let { username } = jwt_decode(HealthcareApi.token);
         setIsLoadingUser(true);
         let user = await HealthcareApi.getUserByUsername(username);
-        console.log('user in app after api call --->>', user)
         setCurrentUser(user);
         //re-render here
         setIsLoadingUser(false);
@@ -80,19 +78,106 @@ const App = () => {
   }, [hasLocalToken]);
 
 
+  // fn to call api and  get user by a name
+
   async function getUsersAfterSearch(formData) { 
     try {
       let user = await HealthcareApi.getUserByName(formData);
-      console.log('user before api search call --->>', user)
-      setUsers(users => user);
-      setErrs([])
-      console.log('user in app after api call after search --->>', users)
+      setUsers(users => [user]);
+      setSearchClicked(false);
+      setSearchErrs([]);
     } catch (e) {
-      setErrs(e);
+      setSearchErrs(e);
       setUsers([])
     }
   };
 
+
+
+// fn to call api and get all users
+  async function getUsers(formData) { 
+    try {
+      let users = await HealthcareApi.getUsers();
+      setUsers(oldUsers => users);
+      setSearchClicked(false);
+      setSearchErrs([]);
+    } catch (e) {
+     console.log('err in get all users', e)
+    }
+  };
+
+
+  const resetUsersInfo = () => {
+    setUsers([]);
+    setSearchErrs([]);
+    setSearchClicked(false);
+  };
+
+  const resetDocsInfo = () => {
+    setDoctors([]);
+    setSearchErrs([]);
+    setSearchClicked(false);
+  };
+
+  const resetApptsInfo = () => {
+    setAppts([]);
+    setSearchErrs([]);
+    setSearchClicked(false);
+  };
+
+    // fn to call api and  get doctor by a name
+
+  async function getDoctorsAfterSearch(formData) { 
+    try {
+      let doctor = await HealthcareApi.getDoctor(formData);
+      setDoctors(doctors => [doctor]);
+      setSearchClicked(false);
+      setSearchErrs([]);
+    } catch (e) {
+      setSearchErrs(e);
+      setDoctors([])
+    }
+  };
+console.log('doctprs after doc search', doctors)
+// fn to call api and get all doctors
+  async function getAllDoctors() { 
+    try {
+      let doctors = await HealthcareApi.getDoctors();
+      setSearchErrs([]);
+      setDoctors(oldDoctors => doctors);
+      setSearchClicked(false);
+    } catch (e) {
+     console.log('err in get all doctors', e)
+    }
+  };
+
+
+
+    // fn to call api and  get doctor by a name
+
+  async function getApptsAfterSearch(formData) { 
+    try {
+      let appts = await HealthcareApi.getApptByName(formData);
+      setAppts(oldAppts => appts);
+      setSearchErrs([]);
+      setSearchClicked(false);
+    } catch (e) {
+      setSearchErrs(e);
+      setAppts([])
+    }
+  };
+
+// fn to call api and get all appointments
+  async function getAllAppts() { 
+    try {
+      let appts = await HealthcareApi.getAppts();
+      setSearchErrs([]);
+      setAppts(oldAppts => appts);
+      setSearchClicked(false);
+    } catch (e) {
+     console.log('err in get all appts', e)
+    }
+  };
 
 
   // Signup
@@ -112,6 +197,7 @@ const App = () => {
    * localStorage and updates hasLocalToken */
   const login = async (loginData) => {
     const tokenRes = await HealthcareApi.login(loginData);
+    console.log('tokenres in login in app', tokenRes)
     setHasLocalToken(true);
     localStorage.setItem("item", tokenRes);
   };
@@ -119,19 +205,21 @@ const App = () => {
   /** Clears local storage and logs user out */
   const logout = async () => {
     localStorage.clear();
+    setUsers([]);
+    setDoctors([]);
+    setAppts([]);
+    setSearchErrs([]);
     setCurrentUser(null);
+    setSearchClicked(false);
+    setDisplayResults(false);
     HealthcareApi.token = '';
     setHasLocalToken(false);
   }
 
-    console.log("App pre-return localStorage token + isLoadingUser",
-      localStorage.getItem("item"),
-      isLoadingUser);
+    // console.log("App pre-return localStorage token + isLoadingUser",
+    //   localStorage.getItem("item"),
+    //   isLoadingUser);
   
-  
-  console.log('App doc Search Data --->>', docSearchData)
-  console.log('App Appt Search Data --->>', apptSearchData)
-  console.log('App user Search Term --->>', userSearchData)
   
   return (
     <div className="App">
@@ -139,12 +227,23 @@ const App = () => {
         login,
         logout,
         currentUser,
-        setDocSearchData,
-        setApptSearchData,
-        setUserSearchData,
         getUsersAfterSearch,
+        getUsers,
         users,
-        errs
+        doctors,
+        appts,
+        getAllDoctors,
+        getDoctorsAfterSearch,
+        getAllAppts,
+        getApptsAfterSearch,
+        searchErrs,
+        searchClicked,
+        setSearchClicked,
+        displayResults,
+        setDisplayResults,
+        resetUsersInfo,
+        resetDocsInfo,
+        resetApptsInfo
       }}> 
         <BrowserRouter>
           <Navigation />

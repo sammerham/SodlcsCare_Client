@@ -8,14 +8,19 @@ import { Link } from "react-router-dom";
 import Badge from 'react-bootstrap/Badge';
 import Stack from 'react-bootstrap/Stack';
 import doctors from '../assets/doctors.png'
-import appointments from '../assets/appointments.png'
+// import appointments from '../assets/appointments.png'
 import calendar from '../assets/calendar.jpeg'
 import users from '../assets/users.jpeg'
 import Image from 'react-bootstrap/Image'
 
 
 const HomePage = () => {
-  const { currentUser } = useContext(HealthContext);
+  const {
+    currentUser,
+    resetUsersInfo,
+    resetDocsInfo,
+    resetApptsInfo
+  } = useContext(HealthContext);
   if (currentUser) {
     return (
       <div className="Homepage">
@@ -25,17 +30,17 @@ const HomePage = () => {
           </Row>
         </Container>
           <Stack direction="horizontal" gap={5} className="justify-content-center">
-              <Link to="/Doctors" className="a-homepage">
+              <Link to="/Doctors" className="a-homepage" onClick={resetDocsInfo}>
                 <Image src={doctors} className='image'></Image>
                 <h6 className="mainTiles-homepage" id='doc'>Doctors</h6>
               </Link>
               
-              <Link to="/appointments" className="a-homepage">
+              <Link to="/appointments" className="a-homepage" onClick={resetApptsInfo}>
                 <Image src={calendar} className='image'></Image>
                 {/* <h6 className="btn-secondary mainTiles-homepage">Appointments</h6> */}
                 <h6 className="mainTiles-homepage">Appointments</h6>
               </Link>
-              <Link to="/users" className="a-homepage" >
+              <Link to="/users" className="a-homepage" onClick={resetUsersInfo}>
                 <Image src={users} className='image'></Image>
                 <h6 className=" mainTiles-homepage">Users</h6>
               </Link>

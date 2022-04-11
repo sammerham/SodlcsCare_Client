@@ -16,7 +16,12 @@ import HealthContext from '../healthContext';
  */
 
 const Navigation = () => {
-  const { currentUser } = useContext(HealthContext);
+  const {
+    currentUser,
+    resetUsersInfo,
+    resetApptsInfo,
+    resetDocsInfo
+  } = useContext(HealthContext);
   console.log("Navigation currentUser", currentUser)
   
   //returns navigation links depending on whether the currentUser state is populated
@@ -35,19 +40,19 @@ const Navigation = () => {
       return (
         <>
           <Nav.Item as="li">
-            <NavLink className="nav-link" exact to="/appointments">
+            <NavLink className="nav-link" exact to="/appointments" onClick={resetApptsInfo}>
               Appointments
             </NavLink>
           </Nav.Item>
 
           <Nav.Item as="li">
-            <NavLink className="nav-link" exact to="/doctors">
+            <NavLink className="nav-link" exact to="/doctors" onClick={resetDocsInfo}>
               Doctors
             </NavLink>
           </Nav.Item>
 
           <Nav.Item as="li">
-            <NavLink className="nav-link" exact to="/users">
+            <NavLink className="nav-link" exact to="/users" onClick={resetUsersInfo}>
               Users
               </NavLink>
           </Nav.Item>

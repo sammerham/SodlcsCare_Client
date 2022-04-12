@@ -53,31 +53,6 @@ const handleSubmit = async (e) => {
   }
 
   return (
-    // <div>
-    //   <h3>Log In</h3>
-      
-    //   <form onSubmit={handleSubmit}>
-    //     <label htmlFor="username">Username</label>
-    //     <input
-    //       type="text"
-    //       name="username"
-    //       id="username"
-    //       onChange={handleChange}
-    //       value={formData.username}
-    //       placeholder='username'
-    //     />
-    //     <label htmlFor="password">Password</label>
-    //     <input
-    //       type="password"
-    //       name="password"
-    //       id="password"
-    //       onChange={handleChange}
-    //       value={formData.password}
-    //       placeholder='password'
-    //     />
-    //     <button type='submit'>Login</button>
-    //   </form>
-    // </div>
     <div className="LoginForm col-md-6 offset-md-3 col-lg-4 offset-lg-4">
       <h3>Log In</h3>
       <Card>

@@ -15,12 +15,7 @@ import Image from 'react-bootstrap/Image'
 
 
 const HomePage = () => {
-  const {
-    currentUser,
-    resetUsersInfo,
-    resetDocsInfo,
-    resetApptsInfo
-  } = useContext(HealthContext);
+  const { currentUser} = useContext(HealthContext);
   if (currentUser) {
     return (
       <div className="Homepage">
@@ -30,17 +25,16 @@ const HomePage = () => {
           </Row>
         </Container>
           <Stack direction="horizontal" gap={5} className="justify-content-center">
-              <Link to="/Doctors" className="a-homepage" onClick={resetDocsInfo}>
+              <Link to="/Doctors" className="a-homepage" >
                 <Image src={doctors} className='image'></Image>
                 <h6 className="mainTiles-homepage" id='doc'>Doctors</h6>
               </Link>
               
-              <Link to="/appointments" className="a-homepage" onClick={resetApptsInfo}>
+              <Link to="/appointments" className="a-homepage">
                 <Image src={calendar} className='image'></Image>
-                {/* <h6 className="btn-secondary mainTiles-homepage">Appointments</h6> */}
                 <h6 className="mainTiles-homepage">Appointments</h6>
               </Link>
-              <Link to="/users" className="a-homepage" onClick={resetUsersInfo}>
+              <Link to="/users" className="a-homepage">
                 <Image src={users} className='image'></Image>
                 <h6 className=" mainTiles-homepage">Users</h6>
               </Link>

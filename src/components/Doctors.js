@@ -1,56 +1,87 @@
-import React, {useContext} from 'react';
+import React, { useEffect, useState} from 'react'
 import SearchForm from './SearchForm';
-import HealthContext from '../healthContext';
+import HealthcareApi from '../api';
 
 const Doctors = () => {
-  const {
-    getAllDoctors,
-    getDoctorsAfterSearch,
-    doctors,
-    searchErrs,
-    searchClicked,
-    setSearchClicked,
-    displayResults,
-    setDisplayResults
-  } = useContext(HealthContext);
 
+  const [doctors, setDoctors] = useState([]);
+  const [clicked, setClicked] = useState(false);
+  const [doctorsErrs, setDoctorsErrs] = useState([]);
+  const [allButtonClikced, setAllButtonClicked] = useState(false);
 
-  console.log('display doctors --->>', displayResults)
-  console.log('search Clicked --->>', searchClicked)
-  console.log('doc comp errs --->', searchErrs)
-  console.log('doc comp all --->', doctors)
+  // handle search click
   const handleSearchClicked = () => {
-    setDisplayResults(false);
-    setSearchClicked(true);
-  };
-
-
-  const handleAllDoctorsClicked = () => {
-    setDisplayResults(true);
-    setSearchClicked(false)
-    getAllDoctors()
+    setClicked(true);
+    setDoctorsErrs([]);
+    setDoctors([]);
+    setAllButtonClicked(true)
   }
 
+
+
+// fn to call api and get all doctors
+  async function getAllDoctors() { 
+    try {
+      const doctors = await HealthcareApi.getDoctors();
+      setDoctors(oldDoctors => doctors);
+      setDoctorsErrs([]);
+      setClicked(false);
+      setAllButtonClicked(false)
+    } catch (e) {
+      setDoctorsErrs(e);
+      setDoctors([])
+    }
+  };
+
+    // fn to call api and  get doctor by a name
+
+  async function getDoctorsAfterSearch(formData) { 
+    try {
+      const doctor = await HealthcareApi.getDoctor(formData);
+      setDoctors(oldDoctors => [doctor]);
+      setDoctorsErrs([]);
+      setClicked(false);
+    } catch (e) {
+      setDoctorsErrs(e);
+      setDoctors([])
+    }
+  };
+
  
+  useEffect(() => {
+    // fn to call api and get all doctors
+    getAllDoctors()
+  }, []);
+
 
   return (
     <div>
       <h1>Doctors</h1>
-      <button onClick={handleSearchClicked}>Search for a doctor</button>
-      <button onClick={handleAllDoctorsClicked}>See all doctors</button>
-      {searchClicked && <SearchForm searchFunc={getDoctorsAfterSearch}/>}
-
-      {searchErrs.length !== 0 && searchErrs.map(err => (
-        <div>
-          {err}
-        </div>
-      ))}
-      
-      {displayResults && doctors?.map(d => (
-          <div>
-            {d.first_name}
-        </div>
-      ))}
+      {clicked ? <SearchForm
+        setDoctors={setDoctors}
+        setClicked={setClicked}
+        setDoctorsErrs={setDoctorsErrs}
+        searchFunc={getDoctorsAfterSearch}
+        setAllButtonClicked={setAllButtonClicked}
+      />
+        :
+        <>
+          {doctorsErrs.length !== 0 && doctorsErrs.map(err => (
+            <div>
+              {err}
+            </div>
+          ))}
+        
+          {doctors.length !== 0 && doctors?.map(d => (
+            <div key={d.id}>
+              {d.first_name}
+            </div>
+          ))}
+        </>
+      }
+       {!clicked && <button onClick={handleSearchClicked}>Search for a Doctor</button>}
+        <br /> 
+        {allButtonClikced && <button onClick={() => getAllDoctors()}>See All Doctors</button>}
     </div>
   )
 }

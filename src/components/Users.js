@@ -1,55 +1,87 @@
-import React, {useContext, useEffect} from 'react'
+import React, { useEffect, useState} from 'react'
 import SearchForm from './SearchForm';
-import HealthContext from '../healthContext';
+import HealthcareApi from '../api';
+
+
+
 
 const Users = () => {
+  const [users, setUsers] = useState([]);
+  const [clicked, setClicked] = useState(false);
+  const [usersErrs, setUsersErrs] = useState([]);
+  const [allButtonClikced, setAllButtonClicked] = useState(false);
 
-  const {
-    getUsers,
-    getUsersAfterSearch,
-    users,
-    searchErrs,
-    searchClicked,
-    setSearchClicked,
-    displayResults,
-    setDisplayResults,
-  } = useContext(HealthContext);
-
-  
+  // handle search click
   const handleSearchClicked = () => {
-    setDisplayResults(false);
-    setSearchClicked(true);
-  };
-  const handleAllUsersClicked = () => {
-    setDisplayResults(true);
-    setSearchClicked(false)
-    getUsers()
+    setClicked(true);
+    setUsersErrs([]);
+    setUsers([]);
+    setAllButtonClicked(true)
   }
-  console.log('display users --->>', displayResults)
-  console.log('search Clicked --->>', searchClicked)
-  console.log('errs---->>', searchErrs)
-  console.log('users in users comp---->>', users)
 
+// fn to call api and get all users
+  async function getUsers() { 
+    try {
+      const users = await HealthcareApi.getUsers();
+      setUsers(oldUsers => users);
+      setUsersErrs([]);
+      setClicked(false);
+      setAllButtonClicked(false)
+    } catch (e) {
+      setUsersErrs(e);
+      setUsers([])
+    }
+  };
+
+
+  // fn to call api and  get user by a name
+
+  async function getUsersAfterSearch(formData) { 
+    try {
+      const user = await HealthcareApi.getUserByName(formData);
+      setUsers(oldUsers => [user]);
+      setUsersErrs([]);
+      setClicked(false);
+    } catch (e) {
+      setUsersErrs(e);
+      setUsers([])
+    }
+  };
+
+  useEffect(() => {
+    // fn to call api and get all users
+    getUsers()
+  }, []);
+ 
   return (
-      <div>
-      <h1>Users</h1>
-      <button onClick={handleSearchClicked}>Search for a user</button>
-      <button onClick={handleAllUsersClicked}>See all users</button>
-      {searchClicked && <SearchForm searchFunc={getUsersAfterSearch} />}
-
-      {searchErrs.length !== 0 && searchErrs.map(err => (
-        <div>
-          {err}
-        </div>
-      ))}
-      
-      {displayResults && users?.map(u => (
-          <div>
-            {u.firstName}
-        </div>
-      ))}
-      
-      
+    <div>
+        <h1>Appointments</h1>
+       
+      {clicked ? <SearchForm
+        setUsers={setUsers}
+        setClicked={setClicked}
+        setUsersErrs={setUsersErrs}
+        searchFunc={getUsersAfterSearch}
+        setAllButtonClicked={setAllButtonClicked}
+      />
+        :
+        <>
+          {usersErrs.length !== 0 && usersErrs.map(err => (
+            <div>
+              {err}
+            </div>
+          ))}
+        
+          {users.length !== 0 && users?.map(u => (
+            <div key={u.username}>
+              {u.firstName}
+            </div>
+          ))}
+        </>
+      }
+       {!clicked && <button onClick={handleSearchClicked}>Search for a User</button>}
+      <br />
+      {allButtonClikced && <button onClick={()=> getUsers()}>See All Users</button>}
     </div>
   )
 }

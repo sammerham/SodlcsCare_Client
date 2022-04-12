@@ -1,57 +1,86 @@
-import React, {useContext} from 'react'
-import SearchForm from './SearchForm'
-import HealthContext from '../healthContext';
+import React, { useEffect, useState} from 'react'
+import SearchForm from './SearchForm';
+import HealthcareApi from '../api';
 
 const Appointments = () => {
-    const {
-    getAllAppts,
-    getApptsAfterSearch,
-    appts,
-    searchErrs,
-    searchClicked,
-    setSearchClicked,
-    displayResults,
-    setDisplayResults
-    } = useContext(HealthContext);
-  
-  
-  console.log('display appts --->>', displayResults)
-  console.log('search Clicked --->>', searchClicked)
-  
+  const [appts, setAppts] = useState([]);
+  const [clicked, setClicked] = useState(false);
+  const [apptsErrs, setApptsErrs] = useState([]);
+  const [allButtonClikced, setAllButtonClicked] = useState(false);
+
+  // handle search click
   const handleSearchClicked = () => {
-    setDisplayResults(false);
-    setSearchClicked(true);
+    setClicked(true);
+    setApptsErrs([]);
+    setAllButtonClicked(true)
+  }
+   
+
+// fn to get all appts 
+  async function getAllAppts() {
+      try {
+        const appts = await HealthcareApi.getAppts();
+        setAppts(oldAppts => appts);
+        setApptsErrs([]);
+        setClicked(false);
+        setAllButtonClicked(false)
+      } catch (e) {
+        setApptsErrs(e);
+        setAppts([])
+      }
+  }
+
+  // fn to get an appt by name
+  async function getApptsAfterSearch(data) { 
+    try {
+      const appts = await HealthcareApi.getApptByName(data);
+      setAppts(oldAppts => appts);
+      setApptsErrs([]);
+    } catch (e) {
+      setApptsErrs(e);
+      setAppts([])
+    }
   };
 
 
-  const handleAllApptsClicked = () => {
-    setDisplayResults(true);
-    setSearchClicked(false)
-    getAllAppts()
-  }
+  useEffect(() => {
+    // fn to call api and get all appointments
+    getAllAppts();
+  }, []);
 
-  console.log('errs---->>', searchErrs)
-  console.log('appts in appts comp---->>', appts)
+
   return (
       <div>
-        <h1>Appointments</h1>
-        <button onClick={handleSearchClicked}>Search for an Appointment</button>
-        <button onClick={handleAllApptsClicked}>See all Appointments</button>
-        {searchClicked && <SearchForm searchFunc={getApptsAfterSearch}/>}
-
-        {searchErrs.length !== 0 && searchErrs.map(err => (
-          <div>
-            {err}
-          </div>
-        ))}
-        
-        {displayResults && appts?.map(a => (
+      <h1>Appointments</h1>
+      {clicked ? <SearchForm
+        setAppts={setAppts}
+        setClicked={setClicked}
+        setApptsErrs={setApptsErrs}
+        searchFunc={getApptsAfterSearch}
+        setAllButtonClicked={setAllButtonClicked}
+        />
+        :
+        <>
+          {apptsErrs.length !== 0 && apptsErrs.map(err => (
             <div>
+              {err}
+            </div>
+          ))}
+        
+          {appts.length !== 0 && appts?.map(a => (
+            <div key={a.id}>
               {a.patient_first_name}
-          </div>
-        ))}
+            </div>
+          ))}
+        </>
+      }
+      {!clicked && <button onClick={handleSearchClicked}>Search for an Appointment</button> }
+      <br />
+      {allButtonClikced && <button onClick={() => getAllAppts()}>See All Appointments</button>}
+    
+
     </div>
   )
 }
 
-export default Appointments
+export default Appointments;

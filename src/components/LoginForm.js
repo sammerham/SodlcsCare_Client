@@ -26,6 +26,7 @@ const LoginForm = () => {
   const [formData, setFormData] = useState(initialState);
   const [formError, setFormError] = useState(null);
   const { login } = useContext(HealthContext);
+  
   const history = useHistory();
 
 //handle form change
@@ -40,11 +41,11 @@ const LoginForm = () => {
 
   // handle submit when the form submits
 const handleSubmit = async (e) => {
+    e.preventDefault();
     try { 
-      e.preventDefault();
       await login(formData);
       setFormData(initialState);
-      history.push('/');
+      history.push("/");
     } catch (e) {
       console.log('e in login --->>', e)
       setFormError(e)

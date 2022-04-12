@@ -1,15 +1,19 @@
-import React, { useState, useContext } from 'react';
-import HealthContext from '../healthContext';
+import React, { useState } from 'react';
 
 
-const SearchForm = ({ searchFunc }) => {
-  
+import './SearchForm.css'
+
+const SearchForm = ({ setClicked,searchFunc, setAllButtonClicked }) => {
   const initialData = {
     firstName: '',
-    lastName: ''
+    lastName: '',
+    date:'',
   };
+
   const [formData, setFormData] = useState(initialData);
-  const { setDisplayResults } = useContext(HealthContext);
+
+
+// fn to handle form change
   const handleChange = e => {
     const { name, value } = e.target;
     setFormData(data => ({
@@ -18,27 +22,30 @@ const SearchForm = ({ searchFunc }) => {
     }));
   };
 
+// fn to hadleSubmit
   const handleSubmit = e => {
     e.preventDefault();
     searchFunc(formData);
     setFormData(initialData);
-    setDisplayResults(true);
+    setClicked(false);
+    setAllButtonClicked(true)
   };
 
   return (
     
     <div>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="firstName"> First Name</label>
+        <label htmlFor="firstName" className="required" > First Name</label>
         <input
           type="text"
           name="firstName"
           placeholder="First Name"
           value={formData.firstName}
           onChange={handleChange}
-          id="firstName"
+          id="firstName"        
         />
-        <label htmlFor="lastName"> Last Name</label>
+        <br />
+        <label htmlFor="lastName" className="required"> Last Name</label>
         <input
           type="text"
           name="lastName"
@@ -47,6 +54,7 @@ const SearchForm = ({ searchFunc }) => {
           onChange={handleChange}
           id="lastName"
         />
+        <br />
         <button type='submit'>Search</button>
       </form>
     </div>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState} from 'react'
 import SearchForm from './SearchForm';
 import HealthcareApi from '../api';
+import { v4 as uuidv4 } from "uuid";
 
 const Doctors = () => {
 
@@ -67,7 +68,7 @@ const Doctors = () => {
         :
         <>
           {doctorsErrs.length !== 0 && doctorsErrs.map(err => (
-            <div>
+            <div key={uuidv4()}>
               {err}
             </div>
           ))}

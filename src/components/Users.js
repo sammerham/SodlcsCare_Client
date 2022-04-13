@@ -1,6 +1,8 @@
 import React, { useEffect, useState} from 'react'
 import SearchForm from './SearchForm';
 import HealthcareApi from '../api';
+import { v4 as uuidv4 } from "uuid";
+import UserCard from './UserCard';
 
 
 
@@ -11,6 +13,7 @@ const Users = () => {
   const [usersErrs, setUsersErrs] = useState([]);
   const [allButtonClikced, setAllButtonClicked] = useState(false);
 
+
   // handle search click
   const handleSearchClicked = () => {
     setClicked(true);
@@ -18,6 +21,9 @@ const Users = () => {
     setUsers([]);
     setAllButtonClicked(true)
   }
+
+  console.log('users --->>', users)
+
 
 // fn to call api and get all users
   async function getUsers() { 
@@ -55,7 +61,7 @@ const Users = () => {
  
   return (
     <div>
-        <h1>Appointments</h1>
+        <h1>Users</h1>
        
       {clicked ? <SearchForm
         setUsers={setUsers}
@@ -67,21 +73,23 @@ const Users = () => {
         :
         <>
           {usersErrs.length !== 0 && usersErrs.map(err => (
-            <div>
+            <div key={uuidv4()}>
               {err}
             </div>
           ))}
         
-          {users.length !== 0 && users?.map(u => (
-            <div key={u.username}>
-              {u.firstName}
-            </div>
-          ))}
+          <ul style={{listStyle:'none'}}>
+            {users.length !== 0 && users?.map(u => (
+              <UserCard user={u} key={u.username}/>
+            ))}
+          </ul>
+            {users.length !== 1 && <button>Add a user</button>}
         </>
       }
        {!clicked && <button onClick={handleSearchClicked}>Search for a User</button>}
       <br />
-      {allButtonClikced && <button onClick={()=> getUsers()}>See All Users</button>}
+      {allButtonClikced && <button onClick={() => getUsers()}>See All Users</button>}
+      
     </div>
   )
 }

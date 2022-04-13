@@ -1,6 +1,7 @@
 import React, { useEffect, useState} from 'react'
 import SearchForm from './SearchForm';
 import HealthcareApi from '../api';
+import { v4 as uuidv4 } from "uuid";
 
 const Appointments = () => {
   const [appts, setAppts] = useState([]);
@@ -62,7 +63,7 @@ const Appointments = () => {
         :
         <>
           {apptsErrs.length !== 0 && apptsErrs.map(err => (
-            <div>
+            <div key={uuidv4()}>
               {err}
             </div>
           ))}

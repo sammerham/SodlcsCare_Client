@@ -27,7 +27,7 @@ const App = () => {
   const [currentUser, setCurrentUser] = useState(null);
   const [hasLocalToken, setHasLocalToken] = useState(false);
   const [isLoadingUser, setIsLoadingUser] = useState(true);
-
+  console.log('token in local storage ---->>', localStorage.getItem('item'))
   console.log("App-Start hasLocalToken + currentUser + isLoadingUser ", hasLocalToken, currentUser, isLoadingUser);
 
   
@@ -46,9 +46,9 @@ const App = () => {
 
         console.log("App userAPICall HealthcareApi.token", HealthcareApi.token);
 
-        let { username } = jwt_decode(HealthcareApi.token);
+        const { username } = jwt_decode(HealthcareApi.token);
         setIsLoadingUser(true);
-        let user = await HealthcareApi.getUserByUsername(username);
+        const user = await HealthcareApi.getUserByUsername(username);
         setCurrentUser(user);
         //re-render here
         setIsLoadingUser(false);

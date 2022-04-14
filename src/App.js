@@ -49,6 +49,7 @@ const App = () => {
         const { username } = jwt_decode(HealthcareApi.token);
         setIsLoadingUser(true);
         const user = await HealthcareApi.getUserByUsername(username);
+        console.log('user in app', currentUser)
         setCurrentUser(user);
         //re-render here
         setIsLoadingUser(false);
@@ -92,32 +93,35 @@ const App = () => {
   const logout = async () => {
     localStorage.clear();
     setCurrentUser(null);
-    HealthcareApi.token = '';
     setHasLocalToken(false);
   }
 
     // console.log("App pre-return localStorage token + isLoadingUser",
     //   localStorage.getItem("item"),
     //   isLoadingUser);
-
+  if (localStorage.getItem("item") && isLoadingUser) {
+    return (
+      <div className="App"><h1>loading...</h1></div>
+    );
+  }
   return (
     <div className="App">
-      <HealthContext.Provider value={{
+      <BrowserRouter>
+        <HealthContext.Provider value={{
         login,
         logout,
         currentUser,
         user,
         setUser
-      }}> 
-        <BrowserRouter>
+        }}> 
           <Navigation />
           {currentUser !== null
             ? <PrivateRoutes />
             : <PublicRoutes />
           }
-        </BrowserRouter>
-      </HealthContext.Provider>
-     </div>
+        </HealthContext.Provider>
+      </BrowserRouter>
+    </div>
   );
 }
 

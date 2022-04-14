@@ -33,13 +33,12 @@ import UserProfileForm from './UserProfileForm';
  */
 
 const PrivateRoutes = () => {
-
   console.log("PrivateRoutes")
 
   return (
 
     <Switch> 
-      <Route exact path="/"> <HomePage/></Route>
+      <Route exact path="/"> <HomePage /></Route>
       <Route exact path="/doctors"> <Doctors/></Route>
       <Route exact path="/users"> <Users/></Route>
       <Route exact path="/appointments"> <Appointments/></Route>

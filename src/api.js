@@ -64,12 +64,18 @@ class HealthcareApi {
     const response = await this.request(`users/${username}`, data, "patch");
     return response.user;
   }
+  
   // delete user - delete request, return deleted username
-   static async deleteUser(username) {
-     const response = await this.request(`users/${username}`,{}, "delete");
-     console.log('response in deleye yser api----->>', response)
+  static async deleteUser(username) {
+    const response = await this.request(`users/${username}`,{}, "delete");
     return response;
   }
+  // add a user 
+  static async AddUser(data) {
+    const response = await this.request(`users/}`,data, "post");
+    return response.user;
+  }
+
 //!******************* DOCTORS *******************************************
   // get doctors - get request return [{},{},{}]
   static async getDoctors() { 

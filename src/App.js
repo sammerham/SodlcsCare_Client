@@ -25,16 +25,16 @@ import './App.css';
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState(null);
+  const [user, setUser] = useState(null);
   const [hasLocalToken, setHasLocalToken] = useState(false);
   const [isLoadingUser, setIsLoadingUser] = useState(true);
-  console.log('token in local storage ---->>', localStorage.getItem('item'))
-  console.log("App-Start hasLocalToken + currentUser + isLoadingUser ", hasLocalToken, currentUser, isLoadingUser);
+  // console.log('token in local storage ---->>', localStorage.getItem('item'))
+  // console.log("App-Start hasLocalToken + currentUser + isLoadingUser ", hasLocalToken, currentUser, isLoadingUser);
 
-  
   /** set current user and update isLoadingUser if there is a local token */
   useEffect(function changeUserFromToken() {
     let localToken = localStorage.getItem("item");
-    console.log("App changeUserFromToken localToken", localToken);
+    // console.log("App changeUserFromToken localToken", localToken);
 
     if (localToken) {
       setHasLocalToken(true);
@@ -44,7 +44,7 @@ const App = () => {
     const userAPICall = async () => {
       try {
 
-        console.log("App userAPICall HealthcareApi.token", HealthcareApi.token);
+        // console.log("App userAPICall HealthcareApi.token", HealthcareApi.token);
 
         const { username } = jwt_decode(HealthcareApi.token);
         setIsLoadingUser(true);
@@ -83,9 +83,9 @@ const App = () => {
    * localStorage and updates hasLocalToken */
   const login = async (loginData) => {
     const tokenRes = await HealthcareApi.login(loginData);
-    console.log('tokenres in login in app', tokenRes)
-    setHasLocalToken(true);
+    console.log('tokenres in login in app --->>', tokenRes)
     localStorage.setItem("item", tokenRes);
+    setHasLocalToken(true);
   };
 
   /** Clears local storage and logs user out */
@@ -96,17 +96,18 @@ const App = () => {
     setHasLocalToken(false);
   }
 
-    console.log("App pre-return localStorage token + isLoadingUser",
-      localStorage.getItem("item"),
-      isLoadingUser);
-  
-  
+    // console.log("App pre-return localStorage token + isLoadingUser",
+    //   localStorage.getItem("item"),
+    //   isLoadingUser);
+
   return (
     <div className="App">
       <HealthContext.Provider value={{
         login,
         logout,
         currentUser,
+        user,
+        setUser
       }}> 
         <BrowserRouter>
           <Navigation />

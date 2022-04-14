@@ -6,6 +6,7 @@ import HomePage from './HomePage';
 import Logout from './Logout';
 import Users from './Users';
 import UserDetails from './UserDetails';
+import UserProfileForm from './UserProfileForm';
 
 /** Private Routes
  * 
@@ -44,6 +45,7 @@ const PrivateRoutes = () => {
       <Route exact path="/appointments"> <Appointments/></Route>
       <Route exact path="/logout"> <Logout /> </Route>
       <Route exact path="/users/:username"> <UserDetails /></Route>
+      <Route exact path="/users/:username/update"> <UserProfileForm /></Route>
 
       <Redirect to="/" />
 

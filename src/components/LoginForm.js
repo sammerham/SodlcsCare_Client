@@ -25,7 +25,7 @@ const LoginForm = () => {
   const initialState = {username:"", password:""};
   const [formData, setFormData] = useState(initialState);
   const [formError, setFormError] = useState(null);
-  const { login } = useContext(HealthContext);
+  const { login} = useContext(HealthContext);
   
   const history = useHistory();
 

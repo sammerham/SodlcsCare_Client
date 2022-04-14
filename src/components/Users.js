@@ -59,14 +59,21 @@ const Users = () => {
     getUsers()
   }, []);
  
+  // addUser
+    // {
+  //         username: "u-new",
+  //         firstName: "First-new",
+  //         lastName: "Last-newL",
+  //         password: "password-new",
+  //         email: "new@email.com",
+  //         isAdmin: false,
+  //       }
   return (
     <div>
         <h1>Users</h1>
        
       {clicked ? <SearchForm
-        setUsers={setUsers}
         setClicked={setClicked}
-        setUsersErrs={setUsersErrs}
         searchFunc={getUsersAfterSearch}
         setAllButtonClicked={setAllButtonClicked}
       />

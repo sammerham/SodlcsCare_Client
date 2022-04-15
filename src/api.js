@@ -17,8 +17,10 @@ class HealthcareApi {
     console.debug("API Call:", endpoint, data, method);
 
     const url = `${BASE_URL}/${endpoint}`;
+   
     const headers = { Authorization: `Bearer ${this.token}` };
     const params = (method === "get") ? data : {};
+
     try {
       return (await axios({ url, method, data, params, headers })).data;
     } catch (err) {
@@ -71,8 +73,9 @@ class HealthcareApi {
     return response;
   }
   // add a user 
-  static async AddUser(data) {
-    const response = await this.request(`users/}`,data, "post");
+  static async addUser(data) {
+    const response = await this.request("users", data, 'post');
+    console.log('res in add user --->>', response)
     return response.user;
   }
 

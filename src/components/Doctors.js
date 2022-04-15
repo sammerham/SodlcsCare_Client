@@ -8,14 +8,13 @@ const Doctors = () => {
   const [doctors, setDoctors] = useState([]);
   const [clicked, setClicked] = useState(false);
   const [doctorsErrs, setDoctorsErrs] = useState([]);
-  const [allButtonClikced, setAllButtonClicked] = useState(false);
+ 
 
   // handle search click
   const handleSearchClicked = () => {
     setClicked(true);
     setDoctorsErrs([]);
     setDoctors([]);
-    setAllButtonClicked(true)
   }
 
 
@@ -27,7 +26,6 @@ const Doctors = () => {
       setDoctors(oldDoctors => doctors);
       setDoctorsErrs([]);
       setClicked(false);
-      setAllButtonClicked(false)
     } catch (e) {
       setDoctorsErrs(e);
       setDoctors([])
@@ -63,7 +61,7 @@ const Doctors = () => {
         setClicked={setClicked}
         setDoctorsErrs={setDoctorsErrs}
         searchFunc={getDoctorsAfterSearch}
-        setAllButtonClicked={setAllButtonClicked}
+        goBack={getAllDoctors}
       />
         :
         <>
@@ -82,7 +80,6 @@ const Doctors = () => {
       }
        {!clicked && <button onClick={handleSearchClicked}>Search for a Doctor</button>}
         <br /> 
-        {allButtonClikced && <button onClick={() => getAllDoctors()}>See All Doctors</button>}
     </div>
   )
 }

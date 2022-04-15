@@ -93,6 +93,7 @@ const App = () => {
   const logout = async () => {
     localStorage.clear();
     setCurrentUser(null);
+ 
     setHasLocalToken(false);
   }
 

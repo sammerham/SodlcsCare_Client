@@ -1,38 +1,26 @@
+import React, { useState } from 'react'
 import { useHistory } from "react-router";
-import { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Alert from "react-bootstrap/Alert";
-// import "./ProfileForm.css";
+import HealthcareApi from "../api";
 
-/** UserProfileForm
- * 
- * Props:
- *  - editProfile()
- *  - currentUser {username, firstName, lastName, email,...}
- * 
- * State:
- *  - formData
- *  - formError
- */
-
-function UserProfileForm({user, updateProfile}) {
-
-  const { firstName, lastName, email, username, isAdmin } = user;
-  console.log('user is ADMIN --->>', isAdmin)
-
-  let initialState = {
-    firstName, lastName, email, isAdmin, password: ""
+const UserAddForm = () => {
+  const initialState = {
+    username:"",
+    firstName:"",
+    lastName:"",
+    email:"",
+    password: "",
+    isAdmin:""
   };
-
   const [formData, setFormData] = useState(initialState);
   const [formError, setFormError] = useState(null);
-
   const history = useHistory();
 
-  /** Sets form data to represent user input */
-  function handleChange(evt) {
+   /** Sets form data to represent user input */
+  const handleChange = evt => {
     const { name, value } = evt.target;
     setFormData(fData => ({
       ...fData,
@@ -40,12 +28,10 @@ function UserProfileForm({user, updateProfile}) {
     }));
   };
 
- 
-  async function handleSubmit(evt) {
-
+  const handleSubmit = async(evt) => {
     evt.preventDefault();
     try {
-      await updateProfile(username,formData);
+      await HealthcareApi.addUser(formData);
       setFormData(initialState);
       history.push("/users");
     } catch (err) {
@@ -53,66 +39,71 @@ function UserProfileForm({user, updateProfile}) {
     };
   }
 
-  
+
   return (
     <div className="ProfileForm col-md-6 offset-md-3 col-lg-4 offset-lg-4">
-      <h3>Edit {firstName}'s Profile</h3>
+      <h3>Add User</h3>
       <Card>
         <Card.Body>
           {formError && <Alert variant="danger">{formError}</Alert>}
           <Form onSubmit={handleSubmit}>
-
             <Form.Group controlId="ProfileFormUsername">
               <Form.Label>Username</Form.Label>
-              <Form.Control type="text"
-                placeholder={username}
+              <Form.Control
+                type="text"
+                placeholder="username"
                 name="username"
-                readOnly />
+                value={formData.username}
+                onChange={handleChange}
+              />
             </Form.Group>
-
             <Form.Group controlId="ProfileFormFirstName">
               <Form.Label>First Name</Form.Label>
-              <Form.Control type="text"
-                placeholder={firstName}
+              <Form.Control
+                type="text"
+                placeholder="First Name"
                 name="firstName"
                 value={formData.firstName}
                 onChange={handleChange}
               />
-            </Form.Group>
-
-            <Form.Group controlId="ProfileFormLastName">
+              </Form.Group>
+            <Form.Group controlId="ProfileFormlastName">
               <Form.Label>Last Name</Form.Label>
-              <Form.Control type="text"
-                placeholder={lastName}
+              <Form.Control
+                type="text"
+                placeholder="Last Name"
                 name="lastName"
                 value={formData.lastName}
-                onChange={handleChange} />
+                onChange={handleChange}
+              />
             </Form.Group>
-
             <Form.Group controlId="ProfileFormEmail">
               <Form.Label>Email</Form.Label>
-              <Form.Control type="email"
-                placeholder={email}
+              <Form.Control
+                type="text"
+                placeholder="Email"
                 name="email"
                 value={formData.email}
-                onChange={handleChange} />
+                onChange={handleChange}
+              />
             </Form.Group>
-
+            
             <Form.Group controlId="ProfileFormPassword">
               <Form.Label>Password</Form.Label>
-              <Form.Control type="password"
-                placeholder=""
+              <Form.Control
+                type="password"
+                placeholder="Password"
                 name="password"
                 value={formData.password}
-                onChange={handleChange} />
-            </Form.Group>
+                onChange={handleChange}
+              />
+            </Form.Group >
             <br />
             <Form.Group controlId="ProfileFormIsAdmin">
                 <Form.Check 
                   type="radio"
                   name="isAdmin"
-                onChange={handleChange}
-                defaultChecked={isAdmin === true}
+                  onChange={handleChange}
                   value={true}
                   label="Admin"
                 />
@@ -121,28 +112,29 @@ function UserProfileForm({user, updateProfile}) {
                   name="isAdmin"
                   onChange={handleChange}
                   value={false}
-                  defaultChecked={isAdmin === false}
                   label="Not Admin"
                 />
             </Form.Group>
             <br />
-            <Button className="ProfileForm-EditButton"
+            <Button className="ProfileForm-SubmitButton"
               variant="primary"
               type="submit">
-              Edit
+              Add User
             </Button>
-              &nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;
             <Button className="ProfileForm-CancelButton"
               variant="danger"
-              onClick={()=> history.push('/users')}
+              onClick={()=>history.push("/users")}
               >
               Cancel
             </Button>
+            
           </Form>
         </Card.Body>
       </Card>
     </div>
+    
   )
 }
 
-export default UserProfileForm;
+export default UserAddForm

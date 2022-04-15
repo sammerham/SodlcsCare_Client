@@ -1,17 +1,17 @@
-import { useEffect, useState, userContext } from "react";
+import { useEffect, useState } from "react";
 import HealthcareApi from "../api";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import UserProfileForm from "./UserProfileForm";
-
+import { useHistory } from "react-router";
+import Button from "react-bootstrap/Button";
 
     
 const UserDetails = () => {
   const [user, setUser] = useState(null);
-  // const { user, setUser } = userContext(HealthcareApi);
   const [clicked, setClicked] = useState(false);
   const { username } = useParams();
-  // const { firstName, lastName, email, isAdmin } = user;
+  const history = useHistory();
 
 
   // fn to call api and get a single user by username
@@ -28,16 +28,18 @@ const UserDetails = () => {
   const updateProfile = async (username, data) => { 
     try {
       const res = await HealthcareApi.updateUser(username, data);
-      console.log('data in edit profile', data)
-      console.log('res in edit profile', res)
       setUser(res);
     } catch (e) {
      console.log('err in get user details', e)
     }
   }
 
+  const handleDelete = async () => {
+    await HealthcareApi.deleteUser(username);
+    history.push('/users')
+  } 
 
-  const handleUpdateClicke = () => setClicked(true);
+  const handleUpdateClick = () => setClicked(true);
   useEffect(() => {
     getSingleUserInfo(username);
   }, [username])
@@ -67,9 +69,11 @@ const UserDetails = () => {
         <br />
         <br />
         {/* <Link to={`/users/${username}/update`}><button>Update</button></Link> */}
-        <button onClick={handleUpdateClicke}>Update</button>
-        <button>Delete</button>
-        <Link to={`/users/`}><button>Users</button></Link>
+          <Button variant="warning" onClick={handleUpdateClick}>Update</Button> 
+          &nbsp;&nbsp;
+          <Button variant="danger" onClick={handleDelete}>Delete</Button>
+          &nbsp;&nbsp;
+        <Link to={`/users/`}><Button variant="dark">Go Back!</Button></Link>
       </div>
       }
     </div>

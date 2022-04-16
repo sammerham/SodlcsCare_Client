@@ -5,8 +5,11 @@ import HealthContext from './healthContext';
 import { BrowserRouter } from "react-router-dom";
 ////*******Routes / Navigation */
 import Navigation from './components/Navigation';
-import PrivateRoutes from './components/PrivateRoutes';
-import PublicRoutes from './components/PublicRoutes';
+import PrivateRoutes from './components/routes/PrivateRoutes';
+// import PrivateAdminRoutes from './components/routes/PrivateAdminRoutes';
+// import PrivateUserRoutes from './components/routes/PrivateUserRoutes';
+import PublicRoutes from './components/routes/PublicRoutes';
+import NavigationCopy from './components/navigation/Navigation copy';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
@@ -25,16 +28,17 @@ import './App.css';
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState(null);
+  const [admin, setAdmin] = useState(false);
   const [user, setUser] = useState(null);
   const [hasLocalToken, setHasLocalToken] = useState(false);
   const [isLoadingUser, setIsLoadingUser] = useState(true);
   // console.log('token in local storage ---->>', localStorage.getItem('item'))
   // console.log("App-Start hasLocalToken + currentUser + isLoadingUser ", hasLocalToken, currentUser, isLoadingUser);
-
+    console.log('admin in app --->>', admin)
   /** set current user and update isLoadingUser if there is a local token */
   useEffect(function changeUserFromToken() {
     let localToken = localStorage.getItem("item");
-    // console.log("App changeUserFromToken localToken", localToken);
+    console.log("App changeUserFromToken localToken", localToken);
 
     if (localToken) {
       setHasLocalToken(true);
@@ -44,17 +48,21 @@ const App = () => {
     const userAPICall = async () => {
       try {
 
-        // console.log("App userAPICall HealthcareApi.token", HealthcareApi.token);
+        console.log("App userAPICall HealthcareApi.token", HealthcareApi.token);
 
-        const { username } = jwt_decode(HealthcareApi.token);
+        let { username } = jwt_decode(HealthcareApi.token);
         setIsLoadingUser(true);
         const user = await HealthcareApi.getUserByUsername(username);
         console.log('user in app', currentUser)
         setCurrentUser(user);
+        setAdmin(user.isAdmin);
         //re-render here
         setIsLoadingUser(false);
+
       } catch (err) {
+
         console.log("App userAPICall err", err);
+
         setCurrentUser(null)
         setIsLoadingUser(false);
       }
@@ -67,33 +75,35 @@ const App = () => {
   }, [hasLocalToken]);
 
 
+  // login
+  /** Gets auth token from backend on login, sets it on
+   * localStorage and updates hasLocalToken */
+  const login = async (loginData) => {
+    let tokenRes = await HealthcareApi.login(loginData);
+    localStorage.setItem("item", tokenRes);
+    setHasLocalToken(true);
+  };
+
+
+
+
   // Signup
 /** Gets auth token from backend on login, sets it on 
 * localStorage & updates hasLocalToken */
   
   const signup= async (formData) => {
-    const tokenRes = await HealthcareApi.register(formData);
-    console.log('tokenres in rgister in app', tokenRes)
+    let tokenRes = await HealthcareApi.register(formData);
     localStorage.setItem("item", tokenRes);
     setHasLocalToken(true)
   };
   
   
-  // login
-  /** Gets auth token from backend on login, sets it on
-   * localStorage and updates hasLocalToken */
-  const login = async (loginData) => {
-    const tokenRes = await HealthcareApi.login(loginData);
-    console.log('tokenres in login in app --->>', tokenRes)
-    localStorage.setItem("item", tokenRes);
-    setHasLocalToken(true);
-  };
+
 
   /** Clears local storage and logs user out */
   const logout = async () => {
     localStorage.clear();
     setCurrentUser(null);
- 
     setHasLocalToken(false);
   }
 
@@ -113,13 +123,27 @@ const App = () => {
         logout,
         currentUser,
         user,
-        setUser
+          setUser,
+        admin
         }}> 
           <Navigation />
-          {currentUser !== null
+     
+          {/* {currentUser !== null
             ? <PrivateRoutes />
             : <PublicRoutes />
-          }
+          }  */}
+
+        {currentUser !== null
+            // ? <>{admin ? <PrivateAdminRoutes /> : <PrivateUserRoutes />}</>
+            ? <PrivateRoutes />
+            : <PublicRoutes />
+          } 
+          
+            
+          
+        
+   
+
         </HealthContext.Provider>
       </BrowserRouter>
     </div>

@@ -1,9 +1,8 @@
 import React, {useContext } from "react";
 import { NavLink } from "react-router-dom";
 import Nav from 'react-bootstrap/Nav';
-import HealthContext from '../healthContext';
+import HealthContext from '../../healthContext';
 // import "./Navigation.css";
-
 
 /** Navigation
  * 
@@ -16,8 +15,8 @@ import HealthContext from '../healthContext';
  * App -> Navigation
  */
 
-const Navigation = () => {
-  const {currentUser, admin} = useContext(HealthContext);
+const NavigationUser = () => {
+  const {currentUser} = useContext(HealthContext);
   console.log("Navigation currentUser", currentUser)
   
   //returns navigation links depending on whether the currentUser state is populated
@@ -32,34 +31,6 @@ const Navigation = () => {
           </Nav.Item>
         </>
       );
-    } else if (admin) {
-      return (
-        <>
-          <Nav.Item as="li">
-            <NavLink className="nav-link" exact to="/appointments">
-              Appointments
-            </NavLink>
-          </Nav.Item>
-
-          <Nav.Item as="li">
-            <NavLink className="nav-link" exact to="/doctors">
-              Doctors
-            </NavLink>
-          </Nav.Item>
-
-          <Nav.Item as="li">
-            <NavLink className="nav-link" exact to="/users">
-              Users
-              </NavLink>
-          </Nav.Item>
-
-          <Nav.Item as="li">
-            <NavLink className="nav-link" exact to="/logout">
-              Logout
-              </NavLink>
-          </Nav.Item>
-        </>
-      )
     } else {
       return (
         <>
@@ -75,6 +46,7 @@ const Navigation = () => {
             </NavLink>
           </Nav.Item>
 
+          
           <Nav.Item as="li">
             <NavLink className="nav-link" exact to="/logout">
               Logout
@@ -84,7 +56,6 @@ const Navigation = () => {
       )
     }
   };
-  
   return (
     <Nav as="ul" variant="tabs" className="Navigation Nav justify-content-center">
       <Nav.Item as="li">
@@ -97,4 +68,4 @@ const Navigation = () => {
   )
 }
 
-export default Navigation
+export default NavigationUser;

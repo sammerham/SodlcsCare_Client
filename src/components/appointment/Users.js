@@ -1,12 +1,11 @@
 import React, { useEffect, useState} from 'react'
-import SearchForm from './SearchForm';
-import HealthcareApi from '../api';
+import SearchForm from '../SearchForm';
+import HealthcareApi from '../../api';
 import { v4 as uuidv4 } from "uuid";
 import UserCard from './UserCard';
 import Button from "react-bootstrap/Button";
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
-import calendar from '../assets/calendar.jpeg'
-import userscomp from '../assets/userscomp.jpeg'
+import userscomp from '../../assets/userscomp.jpeg'
 import Image from 'react-bootstrap/Image'
 
 const Users = () => {

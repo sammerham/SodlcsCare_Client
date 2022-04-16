@@ -1,13 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 
-    // {
-    //     "username": "new4",
-    //     "firstName": "first4",
-    //     "lastName": "last4",
-    //     "email": "new4@email.com",
-    //     "isAdmin": false
-    // }
     
 const UserCard = ({ user }) => {
   const { username, firstName, lastName, email, isAdmin } = user;

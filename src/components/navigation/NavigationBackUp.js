@@ -4,7 +4,6 @@ import Nav from 'react-bootstrap/Nav';
 import HealthContext from '../healthContext';
 // import "./Navigation.css";
 
-
 /** Navigation
  * 
  * Props: 
@@ -17,7 +16,7 @@ import HealthContext from '../healthContext';
  */
 
 const Navigation = () => {
-  const {currentUser, admin} = useContext(HealthContext);
+  const {currentUser} = useContext(HealthContext);
   console.log("Navigation currentUser", currentUser)
   
   //returns navigation links depending on whether the currentUser state is populated
@@ -32,7 +31,7 @@ const Navigation = () => {
           </Nav.Item>
         </>
       );
-    } else if (admin) {
+    } else {
       return (
         <>
           <Nav.Item as="li">
@@ -60,31 +59,8 @@ const Navigation = () => {
           </Nav.Item>
         </>
       )
-    } else {
-      return (
-        <>
-          <Nav.Item as="li">
-            <NavLink className="nav-link" exact to="/appointments">
-              Appointments
-            </NavLink>
-          </Nav.Item>
-
-          <Nav.Item as="li">
-            <NavLink className="nav-link" exact to="/doctors">
-              Doctors
-            </NavLink>
-          </Nav.Item>
-
-          <Nav.Item as="li">
-            <NavLink className="nav-link" exact to="/logout">
-              Logout
-              </NavLink>
-          </Nav.Item>
-        </>
-      )
     }
   };
-  
   return (
     <Nav as="ul" variant="tabs" className="Navigation Nav justify-content-center">
       <Nav.Item as="li">

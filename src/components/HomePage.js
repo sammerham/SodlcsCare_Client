@@ -14,7 +14,7 @@ import Image from 'react-bootstrap/Image'
 
 
 const HomePage = () => {
-  const { currentUser } = useContext(HealthContext);
+  const { currentUser, admin } = useContext(HealthContext);
   return (
     <>
       {currentUser ?
@@ -34,10 +34,11 @@ const HomePage = () => {
               <Image src={calendar} className='image'></Image>
               <h6 className="mainTiles-homepage">Appointments</h6>
             </Link>
-            <Link to="/users" className="a-homepage">
+      
+            {admin && <Link to="/users" className="a-homepage">
               <Image src={users} className='image'></Image>
               <h6 className=" mainTiles-homepage">Users</h6>
-            </Link>
+            </Link>}
           </Stack>
         </div>
         :

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Route, Redirect } from "react-router-dom";
-import HomePage from './HomePage';
-import LoginForm from "./LoginForm";
+import HomePage from '../HomePage';
+import LoginForm from "../LoginForm";
 
 /** Routes
  * 

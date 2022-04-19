@@ -87,7 +87,7 @@ class HealthcareApi {
   }
 
  // get doctor - get request return {}
-  static async getDoctor( data ) { 
+  static async getDoctorByName( data ) { 
     const response = await this.request(`doctors/name`, data, 'post' );
     return response.doctor;
   }
@@ -158,7 +158,14 @@ class HealthcareApi {
     return response.appointment;
   }
 
-
+  // get full appt infor by id - get request return {}
+  static async getFullApptInfoById(id) { 
+    const response = await this.request(`appts/${id}`);
+    const doc = await this.getDoctorById(response.appointment.doctor_id);
+    response.appointment.doctor = `${doc.first_name} ${doc.last_name}`;
+    // const fullRes = { ...response.appointment, doctor: `${doc.first_name} ${doc.last_name}` }
+    return response.appointment;
+  }
   // post appt - add appt and returns {}
   static async addAppt(data) { 
     const response = await this.request(`appts/`,data, "post");
@@ -173,6 +180,7 @@ class HealthcareApi {
 
   // patch appt - updates appt info return appt
   static async updateAppt(id, data) { 
+    console.log('data in patch updated appt', data)
     const response = await this.request(`appts/${id}`,data, "patch");
     return response.appointment;
   }

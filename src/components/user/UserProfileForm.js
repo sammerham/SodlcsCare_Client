@@ -17,7 +17,7 @@ import Alert from "react-bootstrap/Alert";
  *  - formError
  */
 
-function UserProfileForm({user, updateProfile}) {
+function UserProfileForm({user, updateProfile, setClicked}) {
 
   const { firstName, lastName, email, username, isAdmin } = user;
   console.log('user is ADMIN --->>', isAdmin)
@@ -133,10 +133,10 @@ function UserProfileForm({user, updateProfile}) {
             </Button>
               &nbsp;&nbsp;
             <Button className="ProfileForm-CancelButton"
-              variant="danger"
-              onClick={()=> history.push('/users')}
+              variant="dark"
+              onClick={()=> setClicked(false)}
               >
-              Cancel
+              Go Back!
             </Button>
           </Form>
         </Card.Body>

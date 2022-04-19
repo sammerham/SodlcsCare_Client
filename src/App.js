@@ -32,6 +32,8 @@ const App = () => {
   const [user, setUser] = useState(null);
   const [hasLocalToken, setHasLocalToken] = useState(false);
   const [isLoadingUser, setIsLoadingUser] = useState(true);
+  const [docNames, setDocNames] = useState([]);
+  
   // console.log('token in local storage ---->>', localStorage.getItem('item'))
   // console.log("App-Start hasLocalToken + currentUser + isLoadingUser ", hasLocalToken, currentUser, isLoadingUser);
     console.log('admin in app --->>', admin)
@@ -107,6 +109,18 @@ const App = () => {
     setHasLocalToken(false);
   }
 
+
+
+  // get doctors full names to use in update and add appt forms
+ useEffect(() => {
+    async function getDoctorsNames() {
+      const res = await HealthcareApi.getDoctors();
+      const names = res.map(d => `${d.first_name} ${d.last_name}`)
+      setDocNames(docNames => names);
+    };
+    getDoctorsNames();
+  }, []);
+
     // console.log("App pre-return localStorage token + isLoadingUser",
     //   localStorage.getItem("item"),
     //   isLoadingUser);
@@ -123,7 +137,8 @@ const App = () => {
         logout,
         currentUser,
         user,
-          setUser,
+        setUser,
+        docNames,
         admin
         }}> 
           <Navigation />

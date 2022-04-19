@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useContext } from 'react'
+import HealthContext from '../../healthContext';
 import { useHistory } from "react-router";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -19,9 +20,8 @@ const ApptAddForm = () => {
   };
   const [formData, setFormData] = useState(initialState);
   const [formError, setFormError] = useState(null);
-  const [doctors, setDoctors] = useState([]);
   const history = useHistory();
-
+  const { docNames } = useContext(HealthContext);
 
   
   function updateObj(obj) { 
@@ -52,16 +52,6 @@ const ApptAddForm = () => {
     };
   }
 
-  useEffect(() => {
-    async function getAllDoctors() {
-      const res = await HealthcareApi.getDoctors();
-      // console.log('res --->>', res)
-      const docs = res.map(d => `${d.first_name} ${d.last_name}`)
-      setDoctors(oldDoctors => docs);
-    };
-    getAllDoctors();
-  }, []);
-  // console.log('doc in appt add form --->>', doctors)
   return (
     <div className="ProfileForm col-md-6 offset-md-3 col-lg-4 offset-lg-4">
       <h3>Book Appointment!</h3>
@@ -102,8 +92,8 @@ const ApptAddForm = () => {
                 onChange={handleChange}
                 required
               >
-                <option></option>
-                {doctors.map(doc => (
+                <option>Doctor</option>
+                {docNames.map(doc => (
                   <option value={doc} key={uuidv4()}>{ doc }</option>
               ))}
               </Form.Select>
@@ -141,7 +131,7 @@ const ApptAddForm = () => {
                 value={formData.kind}
                 onChange={handleChange}
               >
-              <option ></option>
+              <option >Type</option>
               <option value="New Patient">New Patient</option>
               <option value="Follow-up">Follow-up</option>
               </Form.Select>

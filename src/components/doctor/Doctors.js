@@ -43,7 +43,9 @@ const Doctors = () => {
 
   async function getDoctorAfterSearch(formData) { 
     try {
-      const doctor = await HealthcareApi.getDoctor(formData);
+      console.log('form Data in doc search', formData)
+      const doctor = await HealthcareApi.getDoctorByName(formData);
+
       setDoctors(oldDoctors => [doctor]);
       setDoctorsErrs([]);
       setSearchClicked(false);

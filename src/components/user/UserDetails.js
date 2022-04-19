@@ -40,11 +40,13 @@ const UserDetails = () => {
   } 
 
   const handleUpdateClick = () => setClicked(true);
+
+  
   useEffect(() => {
     getSingleUserInfo(username);
   }, [username])
 
-// deleteUser(username)
+
   
 //updateUser(username, data)
   if (user === null) {
@@ -56,7 +58,7 @@ const UserDetails = () => {
 
     <div>
       {clicked ?
-        <UserProfileForm user={user} updateProfile={updateProfile} />
+        <UserProfileForm user={user} updateProfile={updateProfile} setClicked={setClicked} />
         :
       <div className="UserDetails">
         <b>Username:</b> {username}

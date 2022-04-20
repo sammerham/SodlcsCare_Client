@@ -113,13 +113,13 @@ class HealthcareApi {
   // get doc appts by doc id - get request return [{}, {}, ....]
   static async getDoctorApptsById(id) { 
     const response = await this.request(`doctors/${id}/appts`);
-    return response.appts;
+    return response;
   }
 
   // get doc appts by doc id for certian date- get request return [{}, {}, ....]
   static async getDoctorApptsByIdDate(id, data) { 
     const response = await this.request(`doctors/${id}/appts/date`, data, "post");
-    return response.appts;
+    return response;
   }
 
   // post doc - adds a doctor return doctor {}
@@ -180,7 +180,6 @@ class HealthcareApi {
 
   // patch appt - updates appt info return appt
   static async updateAppt(id, data) { 
-    console.log('data in patch updated appt', data)
     const response = await this.request(`appts/${id}`,data, "patch");
     return response.appointment;
   }

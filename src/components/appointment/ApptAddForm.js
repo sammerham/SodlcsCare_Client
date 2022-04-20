@@ -19,7 +19,7 @@ const ApptAddForm = () => {
     kind: ""
   };
   const [formData, setFormData] = useState(initialState);
-  const [formError, setFormError] = useState(null);
+  const [formError, setFormError] = useState([]);
   const history = useHistory();
   const { docNames } = useContext(HealthContext);
 
@@ -40,14 +40,18 @@ const ApptAddForm = () => {
       [name]: value,
     }));
   };
+ 
+
 
   const handleSubmit = async(evt) => {
     evt.preventDefault();
     try {
-      await HealthcareApi.addAppt(updateObj(formData));
+      const res = await HealthcareApi.addAppt(updateObj(formData));
+    
+      if(res)history.push("/appointments");
       setFormData(initialState);
-      history.push("/appointments");
     } catch (err) {
+    
       setFormError(err);
     };
   }
@@ -58,7 +62,7 @@ const ApptAddForm = () => {
 
       <Card>
         <Card.Body>
-          {formError && <Alert variant="danger">{formError}</Alert>}
+          {formError.length >=1 && <Alert variant="danger">{formError}</Alert>}
           <Form onSubmit={handleSubmit}>
 
             <Form.Group controlId="ApptAddFormPatientFirstName">
@@ -138,13 +142,13 @@ const ApptAddForm = () => {
             </Form.Group>
             <br />
            
-            <Button className="ProfileForm-SubmitButton"
+            <Button className="ApptAddForm-SubmitButton"
               variant="primary"
               type="submit">
               Book
             </Button>
             &nbsp;&nbsp;&nbsp;&nbsp;
-            <Button className="ProfileForm-CancelButton"
+            <Button className="ApptAddForm-CancelButton"
               variant="danger"
               onClick={()=>history.push("/appointments")}
               >

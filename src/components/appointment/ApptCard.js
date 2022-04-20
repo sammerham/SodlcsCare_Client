@@ -5,7 +5,7 @@ import moment from 'moment';
 
 
 const ApptCard = ({ appt }) => {
-  const { id, patient_first_name, patient_last_name, appt_date, appt_time, kind, doctor } = appt;
+  const { id, patient_first_name, patient_last_name, appt_date, appt_time, kind } = appt;
   return (
     <Link to={`/appointments/${id}`}>
       <li>

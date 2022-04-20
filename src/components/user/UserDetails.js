@@ -52,7 +52,7 @@ const UserDetails = () => {
   if (user === null) {
     return (<div className="UserDetails"><h1>Loading...</h1></div>);
   }
-  console.log('clicked in user details --->>', clicked)
+
 
   return (
 

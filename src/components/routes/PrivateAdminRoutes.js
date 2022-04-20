@@ -11,8 +11,8 @@ import DoctorAddForm from '../doctor/DoctorAddForm';
 import Appointments from '../appointment/Appointments';
 import ApptDetails from '../appointment/ApptDetails';
 import ApptAddForm from '../appointment/ApptAddForm';
-
-
+import DocAllAppts from '../doctor/DocAllAppts';
+import DocAllApptsByDate from '../doctor/DocAllApptsByDate';
 
 /** Private Routes
  * 
@@ -50,6 +50,8 @@ const PrivateAdminRoutes = () => {
       <Route exact path="/users/user/add"> <UserAddForm /></Route>
       <Route exact path="/doctors"> <Doctors/></Route>
       <Route exact path="/doctors/:id"> <DoctorDetails /></Route>
+      <Route exact path="/doctors/:id/appts"> <DocAllAppts/></Route>
+      <Route exact path="/doctors/:id/appts/date"> <DocAllApptsByDate/></Route>
       <Route exact path="/doctors/doctor/add"> <DoctorAddForm /></Route>
       <Route exact path="/appointments"> <Appointments/></Route>
       <Route exact path="/appointments/:id"> <ApptDetails/></Route>

@@ -20,7 +20,7 @@ import Alert from "react-bootstrap/Alert";
 function UserProfileForm({user, updateProfile, setClicked}) {
 
   const { firstName, lastName, email, username, isAdmin } = user;
-  console.log('user is ADMIN --->>', isAdmin)
+
 
   let initialState = {
     firstName, lastName, email, isAdmin, password: ""
@@ -53,7 +53,7 @@ function UserProfileForm({user, updateProfile, setClicked}) {
     };
   }
 
-  
+
   return (
     <div className="ProfileForm col-md-6 offset-md-3 col-lg-4 offset-lg-4">
       <h3>Edit {firstName}'s Profile</h3>
@@ -104,7 +104,9 @@ function UserProfileForm({user, updateProfile, setClicked}) {
                 placeholder=""
                 name="password"
                 value={formData.password}
-                onChange={handleChange} />
+                required
+                onChange={handleChange}
+              />
             </Form.Group>
             <br />
             <Form.Group>
@@ -112,7 +114,7 @@ function UserProfileForm({user, updateProfile, setClicked}) {
                   type="radio"
                   name="isAdmin"
                   onChange={handleChange}
-                  defaultChecked={isAdmin === "true"}
+                  defaultChecked={formData.isAdmin === true}
                   value={true}
                   label="Admin"
                 />
@@ -121,7 +123,7 @@ function UserProfileForm({user, updateProfile, setClicked}) {
                   name="isAdmin"
                   onChange={handleChange}
                   value={false}
-                  defaultChecked={isAdmin === "false"}
+                  defaultChecked={formData.isAdmin === false }
                   label="Not Admin"
                 />
             </Form.Group>
@@ -129,7 +131,7 @@ function UserProfileForm({user, updateProfile, setClicked}) {
             <Button className="ProfileForm-EditButton"
               variant="primary"
               type="submit">
-              Edit
+              Save
             </Button>
               &nbsp;&nbsp;
             <Button className="ProfileForm-CancelButton"

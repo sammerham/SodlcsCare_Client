@@ -9,7 +9,6 @@ import PrivateRoutes from './components/routes/PrivateRoutes';
 // import PrivateAdminRoutes from './components/routes/PrivateAdminRoutes';
 // import PrivateUserRoutes from './components/routes/PrivateUserRoutes';
 import PublicRoutes from './components/routes/PublicRoutes';
-import NavigationCopy from './components/navigation/Navigation copy';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
@@ -33,10 +32,10 @@ const App = () => {
   const [hasLocalToken, setHasLocalToken] = useState(false);
   const [isLoadingUser, setIsLoadingUser] = useState(true);
   const [docNames, setDocNames] = useState([]);
+ 
   
   // console.log('token in local storage ---->>', localStorage.getItem('item'))
   // console.log("App-Start hasLocalToken + currentUser + isLoadingUser ", hasLocalToken, currentUser, isLoadingUser);
-    console.log('admin in app --->>', admin)
   /** set current user and update isLoadingUser if there is a local token */
   useEffect(function changeUserFromToken() {
     let localToken = localStorage.getItem("item");
@@ -139,7 +138,7 @@ const App = () => {
         user,
         setUser,
         docNames,
-        admin
+        admin,
         }}> 
           <Navigation />
      
@@ -153,12 +152,6 @@ const App = () => {
             ? <PrivateRoutes />
             : <PublicRoutes />
           } 
-          
-            
-          
-        
-   
-
         </HealthContext.Provider>
       </BrowserRouter>
     </div>

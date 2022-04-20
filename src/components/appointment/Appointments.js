@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 import ApptCard from './ApptCard';
 import Button from "react-bootstrap/Button";
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
-import apptsComp from '../../assets/userscomp.jpeg'
+import apptsComp from '../../assets/apptsComp.png';
 import Image from 'react-bootstrap/Image'
 
 const Appointments = () => {
@@ -61,7 +61,7 @@ const Appointments = () => {
 
       {searchClicked ?
         <>
-          <h3>Search for an Appointment!</h3>
+          <h3 style={{marginTop:30}}>Search for an Appointment!</h3>
           <SearchForm
             setClicked={setSearchClicked}
             searchFunc={getApptsAfterSearch}

@@ -27,8 +27,7 @@ const ApptDetails = () => {
   // fn to call api and update user by username
   const updateAppointment = async (id, data) => { 
     try {
-      const res = await HealthcareApi.updateAppt(id, data);
-      console.log('res in aupdate appt', res)
+      await HealthcareApi.updateAppt(id, data);
       // setAppt(a => res);
     } catch (e) {
      console.log('err in get user details', e)
@@ -48,7 +47,6 @@ const ApptDetails = () => {
   }, [id])
 
   
-//updateUser(username, data)
   if (appt === null) {
     return (<div className="UserDetails"><h1>Loading...</h1></div>);
   }
@@ -60,7 +58,7 @@ const ApptDetails = () => {
       {clicked ?
         <ApptEditForm appt={appt} updateAppointment={updateAppointment} setClicked={setClicked}/>
         :
-      <div className="ApptDetails">
+      <div className="ApptDetails" style={{marginTop:40}}>
         
         <b>Patient Name:</b> {appt.patient_first_name} {appt.patient_last_name}
         <br />
@@ -71,7 +69,8 @@ const ApptDetails = () => {
         <b>Time:</b> {moment(appt.appt_time, ["hh.mm"]).format("hh:mm a")}
         <br />
         <b>Type:</b> {appt.kind}
-        <br />
+          <br />
+          <br />
           <Button variant="warning" onClick={handleUpdateClick}>Update</Button> 
           &nbsp;&nbsp;
           <Button variant="danger" onClick={handleDelete}>Cancel</Button>

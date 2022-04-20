@@ -1,11 +1,10 @@
 import { useHistory } from "react-router";
-import { useState, useEffect, useContext } from "react";
+import { useState, useContext } from "react";
 import HealthContext from '../../healthContext';
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Alert from "react-bootstrap/Alert";
-import HealthcareApi from "../../api";
 import { v4 as uuidv4 } from "uuid";
 import moment from 'moment';
 // import "./ProfileForm.css";
@@ -192,7 +191,7 @@ function ApptEditForm({appt, updateAppointment, setClicked, doc}) {
             <Button className="ApptUpdateForm-EditButton"
               variant="primary"
               type="submit">
-              Edit
+              Save
             </Button>
               &nbsp;&nbsp;
             <Button className="ApptUpdateForm-GoBackButton"

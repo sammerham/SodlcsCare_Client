@@ -97,7 +97,7 @@ function DoctorProfileForm({doctor, updateDoctorProfile}) {
             <Button className="ProfileForm-EditButton"
               variant="primary"
               type="submit">
-              Edit
+              Save
             </Button>
               &nbsp;&nbsp;
             <Button className="ProfileForm-CancelButton"

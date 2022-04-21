@@ -54,7 +54,6 @@ const App = () => {
         let { username } = jwt_decode(HealthcareApi.token);
         setIsLoadingUser(true);
         const user = await HealthcareApi.getUserByUsername(username);
-        console.log('user in app', currentUser)
         setCurrentUser(user);
         setAdmin(user.isAdmin);
         //re-render here

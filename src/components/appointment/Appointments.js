@@ -3,6 +3,7 @@ import SearchForm from '../SearchForm';
 import HealthcareApi from '../../api';
 import { v4 as uuidv4 } from "uuid";
 import ApptCard from './ApptCard';
+import Pagination from '../Pagination';
 import Button from "react-bootstrap/Button";
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import apptsComp from '../../assets/apptsComp.png';
@@ -13,6 +14,13 @@ const Appointments = () => {
   const [searchClicked, setSearchClicked] = useState(false);
   const [apptsErrs, setApptsErrs] = useState([]);
   
+  // pagination
+  const [currPage, setCurrPage] = useState(1);
+  const [itemsPerPage] = useState(5);
+  const lastItemIdx = currPage * itemsPerPage;
+  const firstItemIdx = lastItemIdx - itemsPerPage;
+  const currAppts = appts.slice(firstItemIdx, lastItemIdx);
+  const paginate = num => setCurrPage(num);
 
 
   // handle search click
@@ -80,17 +88,19 @@ const Appointments = () => {
           ))}
         
           <ul style={{listStyle:'none'}}>
-            {appts.length !== 0 && appts?.map(appt => (
+            {appts.length !== 1 && <Link to={`/appointments/appt/add`}><Button variant="success" >Book Appointment!</Button></Link>}
+             &nbsp;&nbsp;
+           {!searchClicked && <Button variant="warning" onClick={handleSearchClicked}>Search for Appointment</Button>} 
+          &nbsp;&nbsp;
+          {appts.length === 1 && <Button variant="dark" onClick={() => getAllAppts()}>Go Back!</Button>}
+            {appts.length !== 0 && currAppts?.map(appt => (
               <ApptCard appt={appt} key={appt.id}/>
             ))}
+             <Pagination totalItems={appts.length} itemsPerPage={itemsPerPage} paginate={paginate}/>
           </ul>
-          {appts.length !== 1 && <Link to={`/appointments/appt/add`}><Button variant="success" >Book Appointment!</Button></Link>}
-          &nbsp;&nbsp;
         </>
       }
-      {!searchClicked && <Button variant="warning" onClick={handleSearchClicked}>Search for Appointment</Button>} 
-      &nbsp;&nbsp;
-      {appts.length === 1 && <Button variant="dark" onClick={() => getAllAppts()}>Go Back!</Button>}
+      
       
     </div>
   )

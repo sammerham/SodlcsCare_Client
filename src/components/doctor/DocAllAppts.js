@@ -6,21 +6,24 @@ import ApptCard from '../appointment/ApptCard';
 import Button from "react-bootstrap/Button";
 import { Link, useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import { useHistory } from "react-router";
+import moment from 'moment';
 
-const DocAllAppts = ({date}) => {
+
+const DocAllAppts = () => {
   const [appts, setAppts] = useState([]);
   const [docName, setDocName] = useState('');
   const [apptsErrs, setApptsErrs] = useState([]);
   const history = useHistory();
   const { id } = useParams()
-
+  const currDate = moment().format("YYYY-MM-DD");
 
 
   // effect to get doc appt on doc id change
   useEffect(() => {
     async function getDocAppts() {
       try {  
-      const res = await HealthcareApi.getDoctorApptsById(id);
+      // const res = await HealthcareApi.getDoctorApptsById(id);
+      const res = await HealthcareApi.getDoctorApptsByIdDate(id, { date:currDate })
       setAppts(oldAppts => res.appts);
       setDocName(d => res.doctor);
       setApptsErrs([]);
@@ -31,7 +34,7 @@ const DocAllAppts = ({date}) => {
       }
     };
     getDocAppts();
-  }, [id]);
+  }, [id, currDate]);
 
 
    return (

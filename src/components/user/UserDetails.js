@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import HealthcareApi from '../../api';
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -70,7 +70,6 @@ const UserDetails = () => {
         <b>Admin:</b> {user.isAdmin?"Yes":'No'}
         <br />
         <br />
-        {/* <Link to={`/users/${username}/update`}><button>Update</button></Link> */}
           <Button variant="warning" onClick={handleUpdateClick}>Update</Button> 
           &nbsp;&nbsp;
           <Button variant="danger" onClick={handleDelete}>Delete</Button>

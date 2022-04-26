@@ -7,11 +7,21 @@ import Button from "react-bootstrap/Button";
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import userscomp from '../../assets/userscomp.jpeg'
 import Image from 'react-bootstrap/Image'
-
+import Pagination from '../Pagination';
 const Users = () => {
   const [users, setUsers] = useState([]);
   const [searchClicked, setSearchClicked] = useState(false);
   const [usersErrs, setUsersErrs] = useState([]);
+  const [currPage, setCurrPage] = useState(1);
+  const [itemsPerPage] = useState(5);
+  const lastItemIdx = currPage * itemsPerPage;
+  const firstItemIdx = lastItemIdx - itemsPerPage;
+  const currUsers = users.slice(firstItemIdx, lastItemIdx);
+
+  const paginate = num => setCurrPage(num);
+
+
+
 
   // handle search click
   const handleSearchClicked = () => {
@@ -83,17 +93,18 @@ const Users = () => {
           ))}
         
           <ul style={{listStyle:'none'}}>
-            {users.length !== 0 && users?.map(u => (
+            {users.length !== 1 && <Link to={`/users/user/add`}><Button variant="success" >Add User</Button></Link>}
+            &nbsp;&nbsp;
+            {!searchClicked && <Button variant="warning" onClick={handleSearchClicked}>Find User</Button>} 
+            &nbsp;&nbsp;
+            {users.length === 1 && <Button variant="dark" onClick={() => getUsers()}>Go Back!</Button>}
+            {users.length !== 0 && currUsers?.map(u => (
               <UserCard user={u} key={u.username}/>
             ))}
+            <Pagination paginate={paginate} itemsPerPage={itemsPerPage} totalItems={users.length}/>
           </ul>
-          {users.length !== 1 && <Link to={`/users/user/add`}><Button variant="success" >Add User</Button></Link>}
-          &nbsp;&nbsp;
         </>
       }
-      {!searchClicked && <Button variant="warning" onClick={handleSearchClicked}>Find User</Button>} 
-      &nbsp;&nbsp;
-      {users.length === 1 && <Button variant="dark" onClick={() => getUsers()}>Go Back!</Button>}
       
     </div>
   )

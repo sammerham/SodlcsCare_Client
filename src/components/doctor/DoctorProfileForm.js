@@ -1,11 +1,10 @@
 import { useHistory } from "react-router";
-import { useState } from "react";
+import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Alert from "react-bootstrap/Alert";
-// import "./ProfileForm.css";
-import HealthcareApi from '../../api';
+
 
 /** UserProfileForm
  * 

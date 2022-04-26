@@ -8,6 +8,7 @@ import Button from "react-bootstrap/Button";
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import doctorsComp from '../../assets/doctorsComp.jpeg'
 import Image from 'react-bootstrap/Image'
+import Pagination from '../Pagination.js';
 
 const Doctors = () => {
   const { admin } = useContext(HealthContext);
@@ -15,7 +16,13 @@ const Doctors = () => {
   const [searchClicked, setSearchClicked] = useState(false);
   const [doctorsErrs, setDoctorsErrs] = useState([]);
   
-
+  // pagination
+  const [currPage, setCurrPage] = useState(1);
+  const [itemsPerPage] = useState(5);
+  const lastItemIdx = currPage * itemsPerPage;
+  const firstItemIdx = lastItemIdx - itemsPerPage;
+  const currDoctors = doctors.slice(firstItemIdx, lastItemIdx);
+  const paginate = num => setCurrPage(num);
 
   // handle search click
   const handleSearchClicked = () => {
@@ -84,19 +91,22 @@ const Doctors = () => {
               {err}
             </div>
           ))}
-          <ul style={{listStyle:'none'}}>
-            {doctors.length !== 0 && doctors?.map(d => (
+          
+          <ul style={{ listStyle: 'none' }}>
+          { admin && doctors.length !== 1 && <Link to={`/doctors/doctor/add`}><Button variant="danger" >Add Doctor</Button></Link> }
+          &nbsp;&nbsp;
+             {!searchClicked && <Button variant="warning" onClick={handleSearchClicked}>Find Doctor</Button>} 
+          {(doctorsErrs.length === 1 ||doctors.length === 1 )  && <Button variant="dark" onClick={() => getAllDoctors()}>Go Back!</Button>} 
+
+          &nbsp;&nbsp;
+            {doctors.length !== 0 && currDoctors?.map(d => (
               <DoctorCard doctor={d} key={d.id}/>
             ))}
+            <Pagination totalItems={doctors.length} paginate={paginate} itemsPerPage={itemsPerPage}/>
           </ul>
-            { admin && doctors.length !== 1 && <Link to={`/doctors/doctor/add`}><Button variant="danger" >Add Doctor</Button></Link> }
-          &nbsp;&nbsp;
         </>
       }
-      {!searchClicked && <Button variant="warning" onClick={handleSearchClicked}>Find Doctor</Button>} 
-          &nbsp;&nbsp;
-      {(doctorsErrs.length === 1 ||doctors.length === 1 )  && <Button variant="dark" onClick={() => getAllDoctors()}>Go Back!</Button>} 
-  
+     
       
     </div>
   )

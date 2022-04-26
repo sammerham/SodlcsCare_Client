@@ -1,4 +1,4 @@
-import { useEffect, useState,useContext } from "react";
+import React, { useEffect, useState,useContext } from "react";
 import HealthcareApi from '../../api';
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -6,6 +6,7 @@ import DoctorProfileForm from "./DoctorProfileForm";
 import { useHistory } from "react-router";
 import Button from "react-bootstrap/Button";
 import HealthContext from '../../healthContext';
+// import { Card } from "react-bootstrap";
 
 
     
@@ -67,10 +68,11 @@ const DoctorDetails = () => {
 
         <div className="DoctorDetails">
 
-        {/* //! #1 doc details */}
-          
+          {/* //! #1 doc details */}
           <>
-          <br />
+            <br />
+            <br />
+            <br />
           <b>Name:</b> {doctor.first_name} {doctor.last_name}
           <br />
           <b>Email:</b> {doctor.email}
@@ -78,26 +80,30 @@ const DoctorDetails = () => {
           <br />
           </>
 
-      {/* //! #2 doc admin buttons */}
-          {admin &&
-          <>
-            <Button variant="warning" onClick={handleUpdateClick}>Update Dr. Info</Button> 
-              &nbsp;&nbsp;
-            <Button variant="danger" onClick={handleDelete}>Delete Doctor</Button>
-          </>
-          }
-          <br />
-          <br />
+    
 
       {/* //! #3 all apptsm - date appts button */}
           <div style={{ display: "flex", justifyContent: 'center', alignItems: 'center'}}>
-            <Link to={`/doctors/${id}/appts/`}><Button variant="info">Dr. {doctor.last_name}'s Appointments</Button></Link>
+            {/* <Link to={`/doctors/${id}/appts/`}><Button variant="info">Dr. {doctor.last_name}'s Appointments</Button></Link> */}
+            <Link to={`/doctors/${id}/appts/`}><Button variant="info">Today's Appointments</Button></Link>
             &nbsp;&nbsp;
             {/* <Button variant="info" onClick={handleSearchDateClick}> Appointments By Date</Button> */}
             <Link to={`/doctors/${id}/appts/date`}><Button variant="info" >Appointments By Date</Button></Link>
           </div>
           <br />
           
+
+    {/* //! #2 doc admin buttons */}
+          {admin &&
+          <>
+            <Button variant="warning" onClick={handleUpdateClick}>Update</Button> 
+              &nbsp;&nbsp;
+            <Button variant="danger" onClick={handleDelete}>Delete</Button>
+          </>
+          }
+          <br />
+          <br />
+
           {/* //! #4 all go back button */}
           
         <Link to={`/doctors/`}><Button variant="dark">Go Back!</Button></Link>

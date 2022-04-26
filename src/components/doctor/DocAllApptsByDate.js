@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import HealthcareApi from '../../api';
 import { v4 as uuidv4 } from "uuid";
 import ApptCard from '../appointment/ApptCard';
@@ -44,6 +44,7 @@ const DocAllApptsByDate = () => {
   }
 
      
+
 
   return (
      

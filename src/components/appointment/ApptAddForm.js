@@ -7,7 +7,7 @@ import Card from "react-bootstrap/Card";
 import Alert from "react-bootstrap/Alert";
 import HealthcareApi from '../../api';
 import { v4 as uuidv4 } from "uuid";
-
+import moment from 'moment';
 
 const ApptAddForm = () => {
   const initialState = {
@@ -22,8 +22,10 @@ const ApptAddForm = () => {
   const [formError, setFormError] = useState([]);
   const history = useHistory();
   const { docNames } = useContext(HealthContext);
-
+  const currDate = moment().format("YYYY-MM-DD");
   
+
+
   function updateObj(obj) { 
     obj.doctor_First_Name = obj.doctor.split(' ')[0]
     obj.doctor_Last_Name = obj.doctor.split(' ')[1]
@@ -56,15 +58,17 @@ const ApptAddForm = () => {
     };
   }
 
+
+
+
   return (
     <div className="ProfileForm col-md-6 offset-md-3 col-lg-4 offset-lg-4">
-      <h3>Book Appointment!</h3>
 
+      <h3>Book Appointment!</h3>
       <Card>
         <Card.Body>
           {formError.length >=1 && <Alert variant="danger">{formError}</Alert>}
           <Form onSubmit={handleSubmit}>
-
             <Form.Group controlId="ApptAddFormPatientFirstName">
               <Form.Label>First Name</Form.Label>
               <Form.Control
@@ -107,6 +111,7 @@ const ApptAddForm = () => {
               <Form.Label>Appointment Date</Form.Label>
               <Form.Control
                 type="date"
+                min={currDate}
                 required
                 value={formData.date}
                 name="date"

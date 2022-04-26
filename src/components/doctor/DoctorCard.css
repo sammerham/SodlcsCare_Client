@@ -1,0 +1,18 @@
+.DoctorCard {
+    margin: auto;
+    margin-top: 10px;
+    width: 50%;
+    text-align: left;
+    color: black;
+
+}
+
+a:link {
+    text-decoration: none;
+}
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+    .DoctorCard {
+        width: auto;
+    }
+}

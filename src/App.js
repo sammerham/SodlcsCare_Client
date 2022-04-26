@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import HealthcareApi from './api';
 import jwt_decode from "jwt-decode";
 import HealthContext from './healthContext';
@@ -32,7 +32,12 @@ const App = () => {
   const [hasLocalToken, setHasLocalToken] = useState(false);
   const [isLoadingUser, setIsLoadingUser] = useState(true);
   const [docNames, setDocNames] = useState([]);
- 
+
+
+  const [users, setUsers] = useState([]);
+  const [Appts, setAppts] = useState([]);
+  const [doctors, setDoctors] = useState([]);
+
   
   // console.log('token in local storage ---->>', localStorage.getItem('item'))
   // console.log("App-Start hasLocalToken + currentUser + isLoadingUser ", hasLocalToken, currentUser, isLoadingUser);
@@ -91,11 +96,11 @@ const App = () => {
 /** Gets auth token from backend on login, sets it on 
 * localStorage & updates hasLocalToken */
   
-  const signup= async (formData) => {
-    let tokenRes = await HealthcareApi.register(formData);
-    localStorage.setItem("item", tokenRes);
-    setHasLocalToken(true)
-  };
+  // const signup= async (formData) => {
+  //   let tokenRes = await HealthcareApi.register(formData);
+  //   localStorage.setItem("item", tokenRes);
+  //   setHasLocalToken(true)
+  // };
   
   
 
@@ -117,7 +122,10 @@ const App = () => {
       setDocNames(docNames => names);
     };
     getDoctorsNames();
-  }, []);
+ }, []);
+  
+  
+  
 
     // console.log("App pre-return localStorage token + isLoadingUser",
     //   localStorage.getItem("item"),

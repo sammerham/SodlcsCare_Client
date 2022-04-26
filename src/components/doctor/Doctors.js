@@ -73,7 +73,7 @@ const Doctors = () => {
     <div>
       {searchClicked ?
         <>
-          <h3>Search for a doctor!</h3>
+          <h3 className="mt-5 mb-5" >Search for a doctor!</h3>
           <SearchForm
             setClicked={setSearchClicked}
             searchFunc={getDoctorAfterSearch}
@@ -82,10 +82,9 @@ const Doctors = () => {
           </>
         :
         <>
-          <br />
-          <Image src={doctorsComp} className='image'></Image> 
-          <br />
-          <br />
+      
+          <Image src={doctorsComp} className='image mt-5 mb-5'></Image> 
+        
           {doctorsErrs.length !== 0 && doctorsErrs.map(err => (
             <div key={uuidv4()}>
               {err}
@@ -93,9 +92,9 @@ const Doctors = () => {
           ))}
           
           <ul style={{ listStyle: 'none' }}>
-          { admin && doctors.length !== 1 && <Link to={`/doctors/doctor/add`}><Button variant="danger" >Add Doctor</Button></Link> }
+          { admin && doctors.length !== 1 && <Link to={`/doctors/doctor/add`}><Button variant="danger" className="mb-4">Add Doctor</Button></Link> }
           &nbsp;&nbsp;
-             {!searchClicked && <Button variant="warning" onClick={handleSearchClicked}>Find Doctor</Button>} 
+             {!searchClicked && <Button variant="warning" className="mb-4" onClick={handleSearchClicked}>Find Doctor</Button>} 
           {(doctorsErrs.length === 1 ||doctors.length === 1 )  && <Button variant="dark" onClick={() => getAllDoctors()}>Go Back!</Button>} 
 
           &nbsp;&nbsp;

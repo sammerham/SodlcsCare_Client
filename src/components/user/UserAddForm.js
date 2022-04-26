@@ -41,8 +41,8 @@ const UserAddForm = () => {
 
 
   return (
-    <div className="ProfileForm col-md-6 offset-md-3 col-lg-4 offset-lg-4">
-      <h3>Add User</h3>
+    <div className="ProfileForm col-md-6 offset-md-3 col-lg-4 offset-lg-4 mt-5">
+      <h3 className='mb-4'>Add User</h3>
       <Card>
         <Card.Body>
           {formError && <Alert variant="danger">{formError}</Alert>}

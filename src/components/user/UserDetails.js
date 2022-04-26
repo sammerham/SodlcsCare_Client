@@ -57,24 +57,25 @@ const UserDetails = () => {
   return (
 
     <div>
+      
       {clicked ?
         <UserProfileForm user={user} updateProfile={updateProfile} setClicked={setClicked} />
         :
-      <div className="UserDetails">
-        <b>Username:</b> {username}
-        <br />
-        <b>Name:</b> {user.firstName} {user.lastName}
-        <br />
-        <b>Email:</b> {user.email}
-        <br />
-        <b>Admin:</b> {user.isAdmin?"Yes":'No'}
-        <br />
-        <br />
-          <Button variant="warning" onClick={handleUpdateClick}>Update</Button> 
-          &nbsp;&nbsp;
-          <Button variant="danger" onClick={handleDelete}>Delete</Button>
-          &nbsp;&nbsp;
-        <Link to={`/users/`}><Button variant="dark">Go Back!</Button></Link>
+        <div className="UserDetails">
+          <h3 className="mb-4 mt-5">{user.firstName}'s page!</h3>
+          <div className="mb-4">
+            <span className="d-block"><b >Username:</b> {username} </span>
+            <span className="d-block"><b>Name:</b> {user.firstName} {user.lastName} </span>
+            <span className="d-block"><b>Email:</b> {user.email} </span>
+            <span className="d-block"><b>Admin:</b> {user.isAdmin ? "Yes" : 'No'} </span>
+          </div>
+          <div>  
+            <Button variant="warning" onClick={handleUpdateClick}>Update</Button> 
+            &nbsp;&nbsp;
+            <Button variant="danger" onClick={handleDelete}>Delete</Button>
+            &nbsp;&nbsp;
+            <Link to={`/users/`}><Button variant="dark">Go Back!</Button></Link>
+          </div>
       </div>
       }
     </div>

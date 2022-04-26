@@ -13,7 +13,7 @@ const Users = () => {
   const [searchClicked, setSearchClicked] = useState(false);
   const [usersErrs, setUsersErrs] = useState([]);
   const [currPage, setCurrPage] = useState(1);
-  const [itemsPerPage] = useState(5);
+  const [itemsPerPage] = useState(4);
   const lastItemIdx = currPage * itemsPerPage;
   const firstItemIdx = lastItemIdx - itemsPerPage;
   const currUsers = users.slice(firstItemIdx, lastItemIdx);
@@ -74,7 +74,7 @@ const Users = () => {
 
       {searchClicked ?
         <>
-          <h3>Search for a user!</h3>
+          <h3 className='mt-5 mb-4'>Search for a user!</h3>
           <SearchForm
             setClicked={setSearchClicked}
             searchFunc={getUsersAfterSearch}
@@ -83,9 +83,7 @@ const Users = () => {
           </>
         :
         <>    
-          <Image src={userscomp} className='image'></Image> 
-          <br />
-          <br />
+          <Image src={userscomp} className='image mb-4'></Image> 
           {usersErrs.length !== 0 && usersErrs.map(err => (
             <div key={uuidv4()}>
               {err}
@@ -93,15 +91,20 @@ const Users = () => {
           ))}
         
           <ul style={{listStyle:'none'}}>
-            {users.length !== 1 && <Link to={`/users/user/add`}><Button variant="success" >Add User</Button></Link>}
+            {users.length !== 1 && <Link to={`/users/user/add`}><Button variant="success" className ="mb-4" >Add User</Button></Link>}
             &nbsp;&nbsp;
-            {!searchClicked && <Button variant="warning" onClick={handleSearchClicked}>Find User</Button>} 
-            &nbsp;&nbsp;
+            {!searchClicked && <Button variant="warning" className ="mb-4" onClick={handleSearchClicked}>Find User</Button>} 
+    
             {users.length === 1 && <Button variant="dark" onClick={() => getUsers()}>Go Back!</Button>}
             {users.length !== 0 && currUsers?.map(u => (
               <UserCard user={u} key={u.username}/>
             ))}
-            <Pagination paginate={paginate} itemsPerPage={itemsPerPage} totalItems={users.length}/>
+            <Pagination
+              
+              paginate={paginate}
+              itemsPerPage={itemsPerPage}
+              totalItems={users.length}
+            />
           </ul>
         </>
       }

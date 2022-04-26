@@ -18,7 +18,6 @@ const UserCard = ({ user }) => {
           <br />
           <b>Admin:</b> {isAdmin?"Yes":'No'}
           <br />
-          <br />
           </Card.Body>
       </Card>
     </Link>

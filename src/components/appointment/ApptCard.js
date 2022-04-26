@@ -18,8 +18,7 @@ const ApptCard = ({ appt }) => {
           <b>Appointment Time:</b> {moment(appt_time, ["hh.mm"]).format("hh:mm a") }
           <br />
           <b>Appointment Type:</b> {kind}
-          <br />
-          <br />
+       
         </Card.Body>
       </Card>
     </Link>

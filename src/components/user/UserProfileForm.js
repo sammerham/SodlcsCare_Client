@@ -56,7 +56,7 @@ function UserProfileForm({user, updateProfile, setClicked}) {
 
   return (
     <div className="ProfileForm col-md-6 offset-md-3 col-lg-4 offset-lg-4">
-      <h3>Edit {firstName}'s Profile</h3>
+      <h3 className="mb-5 mt-5">Edit {firstName}'s Profile</h3>
       <Card>
         <Card.Body>
           {formError && <Alert variant="danger">{formError}</Alert>}

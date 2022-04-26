@@ -6,8 +6,6 @@ import { BrowserRouter } from "react-router-dom";
 ////*******Routes / Navigation */
 import Navigation from './components/Navigation';
 import PrivateRoutes from './components/routes/PrivateRoutes';
-// import PrivateAdminRoutes from './components/routes/PrivateAdminRoutes';
-// import PrivateUserRoutes from './components/routes/PrivateUserRoutes';
 import PublicRoutes from './components/routes/PublicRoutes';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
@@ -34,14 +32,6 @@ const App = () => {
   const [docNames, setDocNames] = useState([]);
 
 
-  const [users, setUsers] = useState([]);
-  const [Appts, setAppts] = useState([]);
-  const [doctors, setDoctors] = useState([]);
-
-  
-  // console.log('token in local storage ---->>', localStorage.getItem('item'))
-  // console.log("App-Start hasLocalToken + currentUser + isLoadingUser ", hasLocalToken, currentUser, isLoadingUser);
-  /** set current user and update isLoadingUser if there is a local token */
   useEffect(function changeUserFromToken() {
     let localToken = localStorage.getItem("item");
     console.log("App changeUserFromToken localToken", localToken);
@@ -127,9 +117,9 @@ const App = () => {
   
   
 
-    // console.log("App pre-return localStorage token + isLoadingUser",
-    //   localStorage.getItem("item"),
-    //   isLoadingUser);
+    console.log("App pre-return localStorage token + isLoadingUser",
+      localStorage.getItem("item"),
+      isLoadingUser);
   if (localStorage.getItem("item") && isLoadingUser) {
     return (
       <div className="App"><h1>loading...</h1></div>
@@ -148,14 +138,9 @@ const App = () => {
         admin,
         }}> 
           <Navigation />
-     
-          {/* {currentUser !== null
-            ? <PrivateRoutes />
-            : <PublicRoutes />
-          }  */}
+    
 
         {currentUser !== null
-            // ? <>{admin ? <PrivateAdminRoutes /> : <PrivateUserRoutes />}</>
             ? <PrivateRoutes />
             : <PublicRoutes />
           } 

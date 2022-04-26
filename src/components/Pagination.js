@@ -8,7 +8,7 @@ const Pagination = ({ totalItems, itemsPerPage, paginate }) => {
 
 
   return (
-    <ul className='pagination'>
+    <ul className='pagination justify-content-center mt-4'>
       {pageNums.map(num => (
         <li className='page-link' key={num} onClick={()=>paginate(num)}>
           {num}

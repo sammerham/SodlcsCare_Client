@@ -58,7 +58,7 @@ function DoctorProfileForm({doctor, updateDoctorProfile}) {
   
   return (
     <div className="DoctorProfileForm col-md-6 offset-md-3 col-lg-4 offset-lg-4">
-      <h3>Edit Dr.{last_name}'s Profile</h3>
+      <h3 className="mb-5 mt-4">Edit Dr.{last_name}'s Profile</h3>
       <Card>
         <Card.Body>
           {formError && <Alert variant="danger">{formError}</Alert>}

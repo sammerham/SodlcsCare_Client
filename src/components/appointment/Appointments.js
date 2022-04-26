@@ -16,7 +16,7 @@ const Appointments = () => {
   
   // pagination
   const [currPage, setCurrPage] = useState(1);
-  const [itemsPerPage] = useState(5);
+  const [itemsPerPage] = useState(3);
   const lastItemIdx = currPage * itemsPerPage;
   const firstItemIdx = lastItemIdx - itemsPerPage;
   const currAppts = appts.slice(firstItemIdx, lastItemIdx);
@@ -69,7 +69,7 @@ const Appointments = () => {
 
       {searchClicked ?
         <>
-          <h3 style={{marginTop:30}}>Search for an Appointment!</h3>
+          <h3 className='mt-5 mb-5'>Search for an Appointment!</h3>
           <SearchForm
             setClicked={setSearchClicked}
             searchFunc={getApptsAfterSearch}
@@ -78,9 +78,8 @@ const Appointments = () => {
           </>
         :
         <>    
-          <Image src={apptsComp} className='image'></Image> 
-          <br />
-          <br />
+          <Image src={apptsComp} className='image mb-5 mt-3'></Image> 
+       
           {apptsErrs.length !== 0 && apptsErrs.map(err => (
             <div key={uuidv4()}>
               {err}
@@ -88,9 +87,9 @@ const Appointments = () => {
           ))}
         
           <ul style={{listStyle:'none'}}>
-            {appts.length !== 1 && <Link to={`/appointments/appt/add`}><Button variant="success" >Book Appointment!</Button></Link>}
+            {appts.length !== 1 && <Link to={`/appointments/appt/add`}><Button variant="success" className="mb-4">Book Appointment!</Button></Link>}
              &nbsp;&nbsp;
-           {!searchClicked && <Button variant="warning" onClick={handleSearchClicked}>Search for Appointment</Button>} 
+           {!searchClicked && <Button variant="warning" className="mb-4" onClick={handleSearchClicked}>Search for Appointment</Button>} 
           &nbsp;&nbsp;
           {appts.length === 1 && <Button variant="dark" onClick={() => getAllAppts()}>Go Back!</Button>}
             {appts.length !== 0 && currAppts?.map(appt => (

@@ -21,7 +21,6 @@ function DoctorProfileForm({doctor, updateDoctorProfile}) {
 
   const { id, first_name, last_name, email } = doctor;
   
-  console.log(doctor, 'doctor in update')
   let initialState = {
     firstName:first_name,
     lastName:last_name,

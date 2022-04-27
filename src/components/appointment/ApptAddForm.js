@@ -10,18 +10,18 @@ import { v4 as uuidv4 } from "uuid";
 import moment from 'moment';
 import TimePicker from 'react-bootstrap-time-picker';
 import 'moment-duration-format';
+// import { TimePicker } from 'antd';
+// import 'antd/dist/antd.css';
 
 
-
-
-
+const currDate = moment().format("YYYY-MM-DD");
 
 const ApptAddForm = () => {
   const initialState = {
     patient_first_name:"",
     patient_last_name:"",
     doctor:"",
-    date: "",
+    date: currDate,
     time:"",
     kind: ""
   };
@@ -29,17 +29,16 @@ const ApptAddForm = () => {
   const [formError, setFormError] = useState([]);
   const history = useHistory();
   const { docNames } = useContext(HealthContext);
-  const currDate = moment().format("YYYY-MM-DD");
-  const formattedTime = t => moment.duration(t, 'seconds').format("hh:mm");
 
-
+  const formattedTime = t => moment.duration(t, 'seconds').format("hh:mm:ss");
+  
 
 
 
   function updateObj(obj) { 
     obj.doctor_First_Name = obj.doctor.split(' ')[0]
     obj.doctor_Last_Name = obj.doctor.split(' ')[1]
-    obj.time = obj.time + ':00'
+    // obj.time = obj.time + ':00'
     delete obj.doctor
     return obj;
   }
@@ -61,11 +60,13 @@ const ApptAddForm = () => {
   }
 
 
+
+
+
   const handleSubmit = async(evt) => {
     evt.preventDefault();
     try {
       const res = await HealthcareApi.addAppt(updateObj(formData));
-    
       if(res)history.push("/appointments");
       setFormData(initialState);
     } catch (err) {
@@ -75,7 +76,7 @@ const ApptAddForm = () => {
   }
 
 
-console.log('formData-->.', formData)
+
 
   return (
     <div className="ProfileForm col-md-6 offset-md-3 col-lg-4 offset-lg-4">
@@ -151,7 +152,8 @@ console.log('formData-->.', formData)
             <Form.Group controlId="ApptAddFormTime" name="time">
             <Form.Label>Appointment Time</Form.Label>
             <TimePicker
-              start="8:00"
+              start="9:00"
+              placeholder="select a time"
               end="17:00"
               step={15}
               format={12}
@@ -159,8 +161,10 @@ console.log('formData-->.', formData)
               value={formData.time}
               name="time"
               onChange={handleTimeChange}
-            />
-          </Form.Group> 
+              />
+            </Form.Group> 
+            
+
             <Form.Group controlId="ApptAddFormKind">
               <Form.Label>Kind</Form.Label>
               <Form.Select

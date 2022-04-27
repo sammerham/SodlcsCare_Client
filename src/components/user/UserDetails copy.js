@@ -61,28 +61,26 @@ const UserDetails = () => {
       {clicked ?
         <UserProfileForm user={user} updateProfile={updateProfile} setClicked={setClicked} />
         :
-      <div className="card text-center">
-        <div className="card-header">
-          <ul className="nav nav-tabs card-header-tabs">
-            <li className="nav-item">
-              <a className="nav-link" href={`/users/`}>Go Back!</a>
-            </li>
-          </ul>
-        </div>
-        <div className="card-body">
-          <h4 className="card-title mb-4 mt-4">{user.firstName}'s page!</h4>
-          <p className="card-text"><b>Username:</b> {username}</p>
-          <p className="card-text"><b>Name:</b> {user.firstName} {user.lastName}</p>
-          <p className="card-text"><b>Email:</b> {user.email}</p>
-          <p className="card-text"><b>Admin:</b> {user.isAdmin ? "Yes" : 'No'}</p>
-          <Button variant="warning" onClick={handleUpdateClick}>Update</Button> 
-          &nbsp;&nbsp;
-          <Button variant="danger" onClick={handleDelete}>Delete</Button>          
-        </div>
-      </div>
-      
-      }
 
+
+
+        <div className="UserDetails">
+          <h3 className="mb-4 mt-5">{user.firstName}'s page!</h3>
+          <div className="mb-4">
+            <span className="d-block"><b >Username:</b> {username} </span>
+            <span className="d-block"><b>Name:</b> {user.firstName} {user.lastName} </span>
+            <span className="d-block"><b>Email:</b> {user.email} </span>
+            <span className="d-block"><b>Admin:</b> {user.isAdmin ? "Yes" : 'No'} </span>
+          </div>
+          <div>  
+            <Button variant="warning" onClick={handleUpdateClick}>Update</Button> 
+            &nbsp;&nbsp;
+            <Button variant="danger" onClick={handleDelete}>Delete</Button>
+            &nbsp;&nbsp;
+            <Link to={`/users/`}><Button variant="dark">Go Back!</Button></Link>
+          </div>
+        </div>
+      }
     </div>
   );
 }

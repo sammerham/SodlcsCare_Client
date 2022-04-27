@@ -66,24 +66,24 @@ const DoctorDetails = () => {
       <DoctorProfileForm doctor={doctor} updateDoctorProfile={updateDoctorProfile} />
         :
         
-      <div class="card text-center">
-        <div class="card-header">
-          <ul class="nav nav-tabs card-header-tabs">
-            <li class="nav-item">
-              <a class="nav-link" href={`/doctors/${id}/appts/`}>Today's Appointments</a>
+      <div className="card text-center">
+        <div className="card-header">
+          <ul className="nav nav-tabs card-header-tabs">
+            <li className="nav-item">
+              <a className="nav-link" href={`/doctors/${id}/appts/`}>Today's Appointments</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href={`/doctors/${id}/appts/date`}>Appointments By Date</a>
+            <li className="nav-item">
+              <a className="nav-link" href={`/doctors/${id}/appts/date`}>Appointments By Date</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href={`/doctors`}>Go Back!</a>
+            <li className="nav-item">
+              <a className="nav-link" href={`/doctors`}>Go Back!</a>
             </li>
           </ul>
         </div>
-        <div class="card-body">
-          <h4 class="card-title mb-4 mt-4">Dr.{doctor.last_name}'s Page!</h4>
-          <p class="card-text"><b>Name:</b> {doctor.first_name} {doctor.last_name}</p>
-          <p class="card-text"><b>Email:</b> {doctor.email}</p>
+        <div className="card-body">
+          <h4 className="card-title mb-4 mt-4">Dr.{doctor.last_name}'s Page!</h4>
+          <p className="card-text"><b>Name:</b> {doctor.first_name} {doctor.last_name}</p>
+          <p className="card-text"><b>Email:</b> {doctor.email}</p>
           {admin &&
             <div>
               <Button variant="warning" onClick={handleUpdateClick}>Update</Button> 

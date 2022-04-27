@@ -8,6 +8,13 @@ import Alert from "react-bootstrap/Alert";
 import HealthcareApi from '../../api';
 import { v4 as uuidv4 } from "uuid";
 import moment from 'moment';
+import TimePicker from 'react-bootstrap-time-picker';
+import 'moment-duration-format';
+
+
+
+
+
 
 const ApptAddForm = () => {
   const initialState = {
@@ -23,7 +30,10 @@ const ApptAddForm = () => {
   const history = useHistory();
   const { docNames } = useContext(HealthContext);
   const currDate = moment().format("YYYY-MM-DD");
-  
+  const formattedTime = t => moment.duration(t, 'seconds').format("hh:mm");
+
+
+
 
 
   function updateObj(obj) { 
@@ -43,6 +53,12 @@ const ApptAddForm = () => {
     }));
   };
  
+  const handleTimeChange = evt => {
+    setFormData(fData => ({
+    ...fData,
+    time: formattedTime(evt)
+  }));
+  }
 
 
   const handleSubmit = async(evt) => {
@@ -59,7 +75,7 @@ const ApptAddForm = () => {
   }
 
 
-
+console.log('formData-->.', formData)
 
   return (
     <div className="ProfileForm col-md-6 offset-md-3 col-lg-4 offset-lg-4">
@@ -119,7 +135,7 @@ const ApptAddForm = () => {
                 />
             </Form.Group>
 
-            
+{/*             
             <Form.Group controlId="ApptAddFormTime">
               <Form.Label>Appointment Time</Form.Label>
               <Form.Control
@@ -128,10 +144,23 @@ const ApptAddForm = () => {
                 value={formData.time}
                 name="time"
                 onChange={handleChange}
-                // step={100}
+                
                 />
-             </Form.Group>
+            </Form.Group>  */}
 
+            <Form.Group controlId="ApptAddFormTime" name="time">
+            <Form.Label>Appointment Time</Form.Label>
+            <TimePicker
+              start="8:00"
+              end="17:00"
+              step={15}
+              format={12}
+              required
+              value={formData.time}
+              name="time"
+              onChange={handleTimeChange}
+            />
+          </Form.Group> 
             <Form.Group controlId="ApptAddFormKind">
               <Form.Label>Kind</Form.Label>
               <Form.Select

@@ -102,7 +102,7 @@ function ApptEditForm({appt, updateAppointment, setClicked, doc}) {
 
   return (
     <div className="ApptUpdateForm col-md-6 offset-md-3 col-lg-4 offset-lg-4">
-
+      <h3 className="mb-5 mt-5">Edit {appt.patient_first_name} {appt.patient_last_name} appointment!</h3>
       <Card>
         <Card.Body>
           {formError && <Alert variant="danger">{formError}</Alert>}

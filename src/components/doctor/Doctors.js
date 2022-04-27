@@ -18,7 +18,7 @@ const Doctors = () => {
   
   // pagination
   const [currPage, setCurrPage] = useState(1);
-  const [itemsPerPage] = useState(5);
+  const [itemsPerPage] = useState(4);
   const lastItemIdx = currPage * itemsPerPage;
   const firstItemIdx = lastItemIdx - itemsPerPage;
   const currDoctors = doctors.slice(firstItemIdx, lastItemIdx);

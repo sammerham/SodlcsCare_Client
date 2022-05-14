@@ -80,7 +80,7 @@ const DoctorAddForm = () => {
             <Button className="addDoctorForm-SubmitButton"
               variant="primary"
               type="submit">
-              Add User
+              Add Doctor
             </Button>
             &nbsp;&nbsp;&nbsp;&nbsp;
             <Button className="addDoctorForm-CancelButton"

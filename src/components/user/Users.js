@@ -91,11 +91,10 @@ const Users = () => {
           ))}
         
           <ul style={{listStyle:'none'}}>
-            {users.length !== 1 && <Link to={`/users/user/add`}><Button variant="success" className ="mb-4" >Add User</Button></Link>}
+            {<Link to={`/users/user/add`}><Button variant="success" className ="mb-4" >Add User</Button></Link>}
             &nbsp;&nbsp;
             {!searchClicked && <Button variant="warning" className ="mb-4" onClick={handleSearchClicked}>Find User</Button>} 
-    
-            {users.length === 1 && <Button variant="dark" onClick={() => getUsers()}>Go Back!</Button>}
+
             {users.length !== 0 && currUsers?.map(u => (
               <UserCard user={u} key={u.username}/>
             ))}

@@ -43,7 +43,7 @@ const HomePage = () => {
         </div>
         :
       <div className="Homepage">
-        <h1><Badge bg="secondary" className="Homepage-container">Welcome to Sodlcs Care!</Badge></h1>
+        <h1><Badge bg="secondary">Welcome to Sodlcs Care!</Badge></h1>
         <Link className="loginbtn-homepage" to="/login"> Log In </Link>
       </div>
       }

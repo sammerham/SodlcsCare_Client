@@ -18,34 +18,29 @@ const HomePage = () => {
   return (
     <>
       {currentUser ?
-          <div className='Homepage'>
-          <Container fluid>
-            <Row className='mt-5 mb-5 Homepage-container col-md-6 offset-md-3 col-lg-4 offset-lg-4'>
+        <div className="Homepage">
+          <Container className="Homepage-container col-md-6 offset-md-3 col-lg-4 offset-lg-4">
+            <Row>
               <Col><h1>Welcome back, {currentUser.firstName}!</h1></Col>  
             </Row>
-          
-          <Row>
-            <Col sm>
+          </Container>
+          <Stack direction="horizontal" gap={5} className="justify-content-center">
             <Link to="/Doctors" className="a-homepage" >
               <Image src={doctors} className='image'></Image>
               <h6 className="mainTiles-homepage" id='doc'>Doctors</h6>
             </Link>
-            </Col>
-            <Col sm>
+              
             <Link to="/appointments" className="a-homepage">
               <Image src={calendar} className='image'></Image>
               <h6 className="mainTiles-homepage">Appointments</h6>
             </Link>
-            </Col>
-            <Col sm>
+      
             {admin && <Link to="/users" className="a-homepage">
               <Image src={users} className='image'></Image>
               <h6 className=" mainTiles-homepage">Users</h6>
-              </Link>}
-              </Col>
-          </Row>
-          </Container>
-          </div>
+            </Link>}
+          </Stack>
+        </div>
         :
       <div className="Homepage">
         <h1 className='mt-5 mb-5'><Badge bg="secondary">Welcome to Sodlcs Care!</Badge></h1>

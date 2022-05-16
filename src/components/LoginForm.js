@@ -41,11 +41,13 @@ const LoginForm = () => {
 
   // handle submit when the form submits
 const handleSubmit = async (e) => {
-    e.preventDefault();
-    try { 
-      await login(formData);
+  e.preventDefault();
+  try { 
+    await login(formData);
+    console.log('---->>>>inside login after calling login')
       setFormData(initialState);
-      history.push("/");
+    history.push("/");
+    console.log('pusshed history--->>')
     } catch (e) {
       console.log('e in login --->>', e)
       setFormError(e)

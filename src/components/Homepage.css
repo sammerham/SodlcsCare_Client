@@ -17,13 +17,14 @@ body {
 
 .Homepage {
     position: absolute;
-    height: 100%;
-    width: 100%;
+    height: auto;
+    width: 100%; 
     background-size: cover;
-    background-position: center center;
+    /* background-position: center center; */
     background-image: url("../assets/Healthcare.jpeg");
     background-repeat: no-repeat;
     background-attachment: fixed;
+    min-height: 100%;
 }
 
 .image{

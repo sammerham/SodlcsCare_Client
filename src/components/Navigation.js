@@ -89,7 +89,7 @@ const Navigation = () => {
     <Nav as="ul" variant="tabs" className="Navigation Nav justify-content-center">
       <Nav.Item as="li">
         <NavLink className="nav-link" exact to="/">
-          Sodlcs Care
+          Home
           </NavLink>
       </Nav.Item>
       {getNavLinks(currentUser)}

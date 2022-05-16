@@ -13,7 +13,7 @@ const Users = () => {
   const [searchClicked, setSearchClicked] = useState(false);
   const [usersErrs, setUsersErrs] = useState([]);
   const [currPage, setCurrPage] = useState(1);
-  const [itemsPerPage] = useState(4);
+  const [itemsPerPage] = useState(3);
   const lastItemIdx = currPage * itemsPerPage;
   const firstItemIdx = lastItemIdx - itemsPerPage;
   const currUsers = users.slice(firstItemIdx, lastItemIdx);

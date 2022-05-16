@@ -24,7 +24,7 @@ const HomePage = () => {
               <Col><h1>Welcome back, {currentUser.firstName}!</h1></Col>  
             </Row>
           
-          <Row>
+          {/* <Row>
               <Col xs={12} md={4}>
             <Link to="/Doctors" className="a-homepage" >
               <Image src={doctors} className='image'></Image>
@@ -43,7 +43,46 @@ const HomePage = () => {
               <h6 className=" mainTiles-homepage">Users</h6>
               </Link>}
               </Col>
+          </Row> */}
+            
+            {
+              admin ?
+                <Row>
+            <Col xs={12} md={4}>
+            <Link to="/Doctors" className="a-homepage" >
+              <Image src={doctors} className='image'></Image>
+              <h6 className="mainTiles-homepage" id='doc'>Doctors</h6>
+            </Link>
+            </Col>
+            <Col xs={12} md={4}>
+            <Link to="/appointments" className="a-homepage">
+              <Image src={calendar} className='image'></Image>
+              <h6 className="mainTiles-homepage">Appointments</h6>
+            </Link>
+            </Col>
+            <Col xs={12} md={4}>
+            <Link to="/users" className="a-homepage">
+              <Image src={users} className='image'></Image>
+              <h6 className=" mainTiles-homepage">Users</h6>
+            </Link>
+                  </Col>
+                </Row>
+                :
+                <Row style={{display: 'flex', justifyContent: 'center'}}>
+              <Col xs={12} md={4}>
+            <Link to="/Doctors" className="a-homepage" >
+              <Image src={doctors} className='image'></Image>
+              <h6 className="mainTiles-homepage" id='doc'>Doctors</h6>
+            </Link>
+            </Col>
+            <Col xs={12} md={4}>
+            <Link to="/appointments" className="a-homepage">
+              <Image src={calendar} className='image'></Image>
+              <h6 className="mainTiles-homepage">Appointments</h6>
+            </Link>
+            </Col>
           </Row>
+            }
           </Container>
           </div>
         :

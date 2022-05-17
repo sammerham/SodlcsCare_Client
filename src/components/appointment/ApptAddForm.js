@@ -1,5 +1,5 @@
-import React, { useState, useContext } from 'react'
-import HealthContext from '../../healthContext';
+import React, { useState, useEffect } from 'react'
+
 import { useHistory } from "react-router";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -27,12 +27,22 @@ const ApptAddForm = () => {
   };
   const [formData, setFormData] = useState(initialState);
   const [formError, setFormError] = useState([]);
+  const [docNames, setDocNames] = useState([]);
   const history = useHistory();
-  const { docNames } = useContext(HealthContext);
+  // const { docNames } = useContext(HealthContext);
 
   const formattedTime = t => moment.duration(t, 'seconds').format("hh:mm:ss");
   
 
+    // get doctors full names to use in update and add appt forms
+ useEffect(() => {
+    async function getDoctorsNames() {
+      const res = await HealthcareApi.getDoctors();
+      const names = res.map(d => `${d.first_name} ${d.last_name}`)
+      setDocNames(docNames => names);
+    };
+    getDoctorsNames();
+ }, []);
 
 
   function updateObj(obj) { 

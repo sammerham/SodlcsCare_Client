@@ -1,6 +1,6 @@
 import { useHistory } from "react-router";
-import React, { useState, useContext } from "react";
-import HealthContext from '../../healthContext';
+import React, { useState, useEffect } from "react";
+import HealthcareApi from '../../api';
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
@@ -55,7 +55,7 @@ function ApptEditForm({appt, updateAppointment, setClicked, doc}) {
   const [formData, setFormData] = useState(initialState);
   const [formError, setFormError] = useState(null);
 
-  const { docNames } = useContext(HealthContext);
+  const [docNames, setDocNames] = useState([]);
 
   const history = useHistory();
 
@@ -68,6 +68,19 @@ function ApptEditForm({appt, updateAppointment, setClicked, doc}) {
     }));
   };
 
+
+
+      // get doctors full names to use in update and add appt forms
+ useEffect(() => {
+    async function getDoctorsNames() {
+      const res = await HealthcareApi.getDoctors();
+      const names = res.map(d => `${d.first_name} ${d.last_name}`)
+      setDocNames(docNames => names);
+    };
+    getDoctorsNames();
+ }, []);
+  
+  
 
   function updateObj(obj) { 
     const objCopy = { ...obj }

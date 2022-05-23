@@ -9,6 +9,10 @@ import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import apptsComp from '../../assets/apptsComp.png';
 import Image from 'react-bootstrap/Image'
 
+import moment from 'moment';
+
+
+
 const Appointments = () => {
   const [appts, setAppts] = useState([]);
   const [searchClicked, setSearchClicked] = useState(false);
@@ -19,17 +23,23 @@ const Appointments = () => {
   const [itemsPerPage] = useState(3);
   const lastItemIdx = currPage * itemsPerPage;
   const firstItemIdx = lastItemIdx - itemsPerPage;
-  const currAppts = appts.slice(firstItemIdx, lastItemIdx);
+  const currDate = moment().format("YYYY-MM-DD");
+  const newCurrAppts = appts.filter(appt => moment(appt.appt_date).format("YYYY-MM-DD") >= currDate);
+  const currAppts = newCurrAppts.slice(firstItemIdx, lastItemIdx);
   const paginate = num => setCurrPage(num);
-
-
+  
+  // moment(.appt_date).format("YYYY-MM-DD");
+  
   // handle search click
   const handleSearchClicked = () => {
     setSearchClicked(true);
     setAppts([]);
     setApptsErrs([]);
   }
-   
+  
+  
+
+
 
 // fn to get all appts 
   async function getAllAppts() {

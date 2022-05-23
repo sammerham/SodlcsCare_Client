@@ -105,7 +105,7 @@ const Appointments = () => {
             {appts.length !== 0 && currAppts?.map(appt => (
               <ApptCard appt={appt} key={appt.id}/>
             ))}
-             <Pagination totalItems={appts.length} itemsPerPage={itemsPerPage} paginate={paginate}/>
+             <Pagination totalItems={newCurrAppts.length} itemsPerPage={itemsPerPage} paginate={paginate}/>
           </ul>
         </>
       }

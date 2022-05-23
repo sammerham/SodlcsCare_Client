@@ -23,9 +23,10 @@ const Appointments = () => {
   const [itemsPerPage] = useState(3);
   const lastItemIdx = currPage * itemsPerPage;
   const firstItemIdx = lastItemIdx - itemsPerPage;
-  const currDate = moment().format("YYYY-MM-DD");
-  const newCurrAppts = appts.filter(appt => moment(appt.appt_date).format("YYYY-MM-DD") >= currDate);
-  const currAppts = newCurrAppts.slice(firstItemIdx, lastItemIdx);
+  // const currDate = moment().format("YYYY-MM-DD");
+  // const newCurrAppts = appts.filter(appt => moment(appt.appt_date).format("YYYY-MM-DD") >= currDate);
+  // const currAppts = newCurrAppts.slice(firstItemIdx, lastItemIdx);
+  const currAppts = appts.slice(firstItemIdx, lastItemIdx);
   const paginate = num => setCurrPage(num);
   
   // moment(.appt_date).format("YYYY-MM-DD");
@@ -105,7 +106,7 @@ const Appointments = () => {
             {appts.length !== 0 && currAppts?.map(appt => (
               <ApptCard appt={appt} key={appt.id}/>
             ))}
-             <Pagination totalItems={newCurrAppts.length} itemsPerPage={itemsPerPage} paginate={paginate}/>
+             <Pagination totalItems={appts.length} itemsPerPage={itemsPerPage} paginate={paginate}/>
           </ul>
         </>
       }

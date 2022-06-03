@@ -41,7 +41,7 @@ const App = () => {
       HealthcareApi.token = localToken;
     }
 
-    const userAPICall = async () => {
+    async function userAPICall() {
       try {
 
         console.log("App userAPICall HealthcareApi.token", HealthcareApi.token);
@@ -72,14 +72,11 @@ const App = () => {
   // login
   /** Gets auth token from backend on login, sets it on
    * localStorage and updates hasLocalToken */
-  const login = async (loginData) => {
-    let tokenRes = await HealthcareApi.login(loginData);
-    console.log('app token login ---->>', tokenRes)
-    setHasLocalToken(true)
+   async function login(formData) {
+    let tokenRes = await HealthcareApi.login(formData);
+    setHasLocalToken(true);
     localStorage.setItem("item", tokenRes);
-    console.log('loca storage in app login ---->>', localStorage.getItem("item"))
   };
-  console.log('has local login in app login ---->>', hasLocalToken)
 
 
 

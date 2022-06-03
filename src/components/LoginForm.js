@@ -25,7 +25,7 @@ const LoginForm = () => {
   const initialState = {username:"", password:""};
   const [formData, setFormData] = useState(initialState);
   const [formError, setFormError] = useState(null);
-  const { login} = useContext(HealthContext);
+  const { login } = useContext(HealthContext);
   
   const history = useHistory();
 
@@ -44,12 +44,9 @@ const handleSubmit = async (e) => {
   e.preventDefault();
   try { 
     await login(formData);
-    console.log('---->>>>inside login after calling login')
-      setFormData(initialState);
+    setFormData(initialState);
     history.push("/");
-    console.log('pusshed history--->>')
     } catch (e) {
-      console.log('e in login --->>', e)
       setFormError(e)
     }
   }

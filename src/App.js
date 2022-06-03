@@ -66,8 +66,6 @@ const App = () => {
     if (hasLocalToken) {
       userAPICall();
     }
-    // userAPICall();
-
   }, [hasLocalToken]);
 
 
@@ -76,9 +74,12 @@ const App = () => {
    * localStorage and updates hasLocalToken */
   const login = async (loginData) => {
     let tokenRes = await HealthcareApi.login(loginData);
+    console.log('app token login ---->>', tokenRes)
+    setHasLocalToken(true)
     localStorage.setItem("item", tokenRes);
-    setHasLocalToken(true);
+    console.log('loca storage in app login ---->>', localStorage.getItem("item"))
   };
+  console.log('has local login in app login ---->>', hasLocalToken)
 
 
 
@@ -136,7 +137,7 @@ const App = () => {
         user,
         setUser,
         docNames,
-        admin,
+          admin,
         }}> 
           <Navigation />
     

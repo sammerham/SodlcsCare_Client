@@ -63,9 +63,10 @@ const App = () => {
       }
     };
 
-    if (hasLocalToken) {
-      userAPICall();
-    }
+    // if (hasLocalToken) {
+    //   userAPICall();
+    // }
+    userAPICall();
 
   }, [hasLocalToken]);
 

@@ -35,17 +35,17 @@ const App = () => {
   useEffect(function changeUserFromToken() {
     let localToken = localStorage.getItem("item");
     console.log("App changeUserFromToken localToken", localToken);
-
+    
     if (localToken) {
       setHasLocalToken(true);
       HealthcareApi.token = localToken;
     }
-
     async function userAPICall() {
       try {
-
+        
         console.log("App userAPICall HealthcareApi.token", HealthcareApi.token);
-
+        console.log('App changeUserFromToken has local token', hasLocalToken)
+        
         let { username } = jwt_decode(HealthcareApi.token);
         setIsLoadingUser(true);
         let user = await HealthcareApi.getUserByUsername(username);
@@ -65,6 +65,7 @@ const App = () => {
 
     if (hasLocalToken) {
       userAPICall();
+      
     }
   }, [hasLocalToken]);
 
@@ -76,6 +77,7 @@ const App = () => {
     let tokenRes = await HealthcareApi.login(formData);
     setHasLocalToken(true);
     localStorage.setItem("item", tokenRes);
+    window.location.reload(false)
   };
 
 
